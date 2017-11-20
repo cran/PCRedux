@@ -1,0 +1,32 @@
+Version 0.2.5-1 [November 2017]
+* improvements to documentation
+* DESCRIPTION adjusted to CRAN requirements
+
+First CRAN version 0.2.5 [November 2017]
+* further bug fixes
+* GPL3 -> MIT
+* Submission to CRAN
+* added data set for 32HCU VideoScan
+
+Version 0.2.3 [November 2017]
+* further bug fixes
+
+Version 0.2.2 [November 2017]
+* further improvements on the documentation and bug fixes
+
+Version 0.2.1 [November 2017]
+* pcrfit_parallel was unreliably working on Windows -> was removed
+* encu function (quasi substitute for pcrfit_parallel) was added
+* visdat_pcrfit_prarallel was renamed to visdat_pcrfit
+* further improvements on the documentation and bug fixes
+
+First stabilized version 0.1.0 [October 2017]
+* Bug fixing
+* added testing
+* adding of data
+* improvement of documentation
+
+First version 0.0.1 [August - September 2017]
+* created package
+* added the functions
+* added the data sets
