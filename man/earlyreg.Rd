@@ -2,10 +2,10 @@
 % Please edit documentation in R/earlyreg.R
 \name{earlyreg}
 \alias{earlyreg}
-\title{A function to calculate the slope and intercept of an amplification curve data 
+\title{A function to calculate the slope and intercept of an amplification curve data
 from a quantitative PCR experiment.}
 \usage{
-earlyreg(x, y, range = 6, normalize = FALSE)
+earlyreg(x, y, range = 5, normalize = FALSE)
 }
 \arguments{
 \item{x}{is the cycle numbers (x-axis).}
@@ -18,21 +18,27 @@ earlyreg(x, y, range = 6, normalize = FALSE)
 data should be normalized to the 99 percent percentile of the amplification curve.}
 }
 \description{
-\code{earlyreg} is a function to calculate the slope and intercept of an 
+\code{earlyreg} is a function to calculate the slope and intercept of an
 amplification curve data from a quantitative PCR experiment. The number
 of cycles to be analyzed is defined by the user (default 6 cycles).
+The output contains the Maximal Information Coefficient (MIC), which
+can be interpreted as a correlation measure with a range of [0,1].
+A value of 0 mean statistically independent data and 1 approaches
+in "probability for noiseless functional relationships" (see
+original study by Reshef, D. N. et al. Detecting novel associations in
+large data sets. Science, 334, 1518-1524 (2011)).
 }
 \examples{
 
 # Calculate slope and intercept on noise (negative) amplification curve data
-# for the cycles 2 to 10 for the C316.amp data set
+# for the cycles 2 to 7 for the C316.amp data set
 library(chipPCR)
 data(C316.amp)
 
 # Plot the data
-plot(C316.amp[, 2], y=C316.amp[, 3], xlab="Cycle", ylab="RFU", 
+plot(C316.amp[, 2], y=C316.amp[, 3], xlab="Cycle", ylab="RFU",
      main="C316.amp data set", lty=1, type="l")
-res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=6)
+res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=5)
 res
 }
 \seealso{

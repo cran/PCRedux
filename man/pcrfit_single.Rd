@@ -16,49 +16,55 @@ Output Description
   "cpD1" \tab maximum of the first derivative curve \tab numeric \cr
   "cpD2" \tab maximum of the second derivative curve \tab numeric \cr
   "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
-  "init1" \tab initial template fluorescence from the sigmoidal model \tab numeric \cr
   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
-  "top" \tab takeoff point \tab numeric \cr
-  "f.top" \tab fluorescence at takeoff point \tab  numeric \cr
-  "resLRE" \tab PCR efficiency by the 'linear regression of efficiency' method \tab numeric \cr
-  "ressliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
-  "cpDdiff" \tab difference between cpD1 and cpD2 \tab numeric \cr
-  "slope_background" \tab slope of the first cycles \tab numeric \cr
-  "intercept_background" \tab intercept of the first cycles \tab numeric \cr
+  "top" \tab takeoff point. When no top can be determined, the tob value is set to the first cycle number. \tab numeric \cr
+  "f.top" \tab fluorescence at takeoff point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the first cycle number. \tab  numeric \cr
+  "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
+  "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
+  "sliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
+  "b_slope" \tab Is the slope of seven parameter model \cr
+  "f_intercept" \tab Is the intercept of the seven parameter model \cr
+  "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
+  "cpDdiff" \tab absolute difference between cpD1 and cpD2 \tab numeric \cr
+  "slope_bg" \tab slope of the first cycles \tab numeric \cr
+  "intercept_bg" \tab intercept of the first cycles \tab numeric \cr
   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence \tab numeric \cr
-  "changepoint.e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
-  "changepoint.bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
+  "changepoint_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
+  "changepoint_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
   "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
-  "amptester_shap.noisy" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
-  "amptester_lrt.test" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
-  "amptester_rgt.dec" \tab Resids growth test (RGt) tests if fluorescence values in a linear phase are stable \tab binary \cr
-  "amptester_tht.dec" \tab  Threshold test (THt) takes the first 20 percent and the last 15 percent of any input data set and performs a Wilcoxon rank sum tests. \tab binary \cr
-  "amptester_slt.dec" \tab Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio \tab binary \cr
+  "amptester_shapiro" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
+  "amptester_lrt" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
+  "amptester_rgt" \tab Resids growth test (RGt) tests if fluorescence values in a linear phase are stable \tab binary \cr
+  "amptester_tht" \tab  Threshold test (THt) takes the first 20 percent and the last 15 percent of any input data set and performs a Wilcoxon rank sum tests. \tab binary \cr
+  "amptester_slt" \tab Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio \tab binary \cr
   "amptester_polygon" \tab pco test (pco) determines if the points in an amplification curve (like a polygon, in particular non-convex polygons) are in a "clockwise" order. \tab binary \cr
   "amptester_slope.ratio" \tab SlR uses the inder function to find the approximated first derivative maximum, second derivative minimum and the second derivative maximum. These are used for a regression analysis with the corresponding fluorescence amplitude data. \tab numeric \cr
   "minRFU" \tab minimum of fluorescence amplitude (percentile 0.01) \tab numeric \cr
   "maxRFU" \tab maximum of fluorescence amplitude (percentile 0.99) \tab numeric \cr
-  "bg.start_normalized" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "bg.stop_normalized" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "amp.stop_normalized" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "head_to_tail_ratio" \tab \tab numeric \cr
+  "bg.start_norm" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+  "bg.stop" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+  "amp.stop" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+  "head2tail_ratio" \tab \tab numeric \cr
   "autocorellation" \tab  \tab numeric \cr
-  "mblrr_intercept_less" \tab  \tab numeric \cr
-  "mblrr_slope_less" \tab \tab numeric \cr
-  "mblrr_cor_less" \tab \tab numeric \cr
-  "mblrr_intercept_more" \tab \tab numeric \cr
-  "mblrr_slope_more" \tab \tab numeric \cr
-  "mblrr_cor_more" \tab \tab numeric \cr
+  "mblrr_intercept_bg" \tab  \tab numeric \cr
+  "mblrr_slope_bg" \tab \tab numeric \cr
+  "mblrr_cor_bg" \tab \tab numeric \cr
+  "mblrr_intercept_pt" \tab \tab numeric \cr
+  "mblrr_slope_pt" \tab \tab numeric \cr
+  "mblrr_cor_pt" \tab \tab numeric \cr
+  "amp_cor_MIC" \tab \tab numeric \cr
   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
-  "mcaPeaks_minima_maxima_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
-  "diffQ2_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
-  "diffQ2_Cq_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
+  "hookreg_hook_slope" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
+  "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
+  "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
+  "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
+  "sd_bg \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
 }
 }
 \description{
-The pcrfit_single is responsible for the 
+The pcrfit_single is responsible for the
 extraction of features from amplification curve data. The function can be used
-for custom functions for a paralleled analysis of amplification curve data. 
+for custom functions for a paralleled analysis of amplification curve data.
 An example is given in the vignette.
 }
 \details{
@@ -71,30 +77,30 @@ library(chipPCR)
 res <- pcrfit_single(C126EG685[, 2])
 }
 \references{
-M. Febrero-Bande, M.O. de la Fuente, others, \emph{Statistical 
-computing in functional data analysis: The R package fda.usc}, Journal of 
+M. Febrero-Bande, M.O. de la Fuente, others, \emph{Statistical
+computing in functional data analysis: The R package fda.usc}, Journal of
 Statistical Software. 51 (2012) 1--28. http://www.jstatsoft.org/v51/i04/
 
-A.-N. Spiess, C. Deutschmann, M. Burdukiewicz, R. Himmelreich, K. Klat, P. 
-Schierack, S. Roediger, Impact of Smoothing on Parameter Estimation in 
-Quantitative DNA Amplification Experiments, Clinical Chemistry. 61 (2015) 
+A.-N. Spiess, C. Deutschmann, M. Burdukiewicz, R. Himmelreich, K. Klat, P.
+Schierack, S. Roediger, Impact of Smoothing on Parameter Estimation in
+Quantitative DNA Amplification Experiments, Clinical Chemistry. 61 (2015)
 379--388. doi:10.1373/clinchem.2014.230656.
 
-S. Roediger, A. Boehm, I. Schimke, Surface Melting Curve Analysis with R, 
-\emph{The R Journal}. 5 (2013) 37--53. 
+S. Roediger, A. Boehm, I. Schimke, Surface Melting Curve Analysis with R,
+\emph{The R Journal}. 5 (2013) 37--53.
 http://journal.r-project.org/archive/2013-2/roediger-bohm-schimke.pdf.
 
-S. Roediger, M. Burdukiewicz, K.A. Blagodatskikh, P. Schierack, R as an 
-Environment for the Reproducible Analysis of DNA Amplification Experiments, 
-\emph{The R Journal}. 7 (2015) 127--150. 
+S. Roediger, M. Burdukiewicz, K.A. Blagodatskikh, P. Schierack, R as an
+Environment for the Reproducible Analysis of DNA Amplification Experiments,
+\emph{The R Journal}. 7 (2015) 127--150.
 http://journal.r-project.org/archive/2015-1/RJ-2015-1.pdf.
 
-S. Pabinger, S. Roediger, A. Kriegner, K. Vierlinger, A. Weinhauusel, A 
-survey of tools for the analysis of quantitative PCR (qPCR) data, \emph{Biomolecular 
+S. Pabinger, S. Roediger, A. Kriegner, K. Vierlinger, A. Weinhauusel, A
+survey of tools for the analysis of quantitative PCR (qPCR) data, \emph{Biomolecular
 Detection and Quantification}. 1 (2014) 23--33. doi:10.1016/j.bdq.2014.08.002.
 
-S. Roediger, M. Burdukiewicz, P. Schierack, \emph{chipPCR: an R package to 
-pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015) 
+S. Roediger, M. Burdukiewicz, P. Schierack, \emph{chipPCR: an R package to
+pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015)
 2900--2902. doi:10.1093/bioinformatics/btv205.
 }
 \seealso{
@@ -104,7 +110,7 @@ pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015)
  \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
  \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{hookregNL}},\code{\link{mblrr}},\code{\link{autocorrelation_test}}
  \code{\link[pracma]{polyarea}}
- \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{LRE}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
+ \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
  \code{\link[base]{diff}}
  \code{\link[stats]{quantile}}
 }

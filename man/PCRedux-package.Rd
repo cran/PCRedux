@@ -3,14 +3,19 @@
 \docType{package}
 \name{PCRedux-package}
 \alias{PCRedux-package}
+\alias{l4}
 \alias{PCRedux}
-\title{PCRedux - quantitative PCR machine learning helper tool}
+\title{PCRedux - quantitative PCR Data Mining and Machine Learning Helper Tool}
+\format{An object of class \code{list} of length 11.}
+\usage{
+l4
+}
 \description{
 \code{PCRedux} package is a toolbox for the analysis of sigmoid curve (qPCR) data.
 }
 \section{Machine learning}{
 
-In machine learning and statistics, classification is the task to identify a new observation which is assigned to a set of categories. A foundation are training data set, which containing observations with known memberships of the categories. In the context of sigmoid amplification curves this could be an assignment into "negative", "ambiguous" or "positive" classes. Basically, a set of descriptors (features of the curvature) is need to perform an assignment to a class. The PCRedux package contains function for feature extraction and human rated amplification curve with classes.
+In machine learning and statistics, the classification should be used to identify a new unknown observation. This observation is assigned to a number of categories. One basis is training data sets containing observations with known classes. Using the example of sigmoid amplification curves, this could be an assignment to the class "negative","ambiguous" or "positive". Basically, a number of descriptors (e. g., characteristics of curvature) are required to be able to assign classes. This package contains functions for extracting characteristics. In addition, the package contains data sets of classified amplification curves.
 }
 
 \examples{
@@ -21,3 +26,4 @@ mblrr(x=boggy[, 1], y=boggy[, 2])
 \author{
 Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh
 }
+\keyword{datasets}
