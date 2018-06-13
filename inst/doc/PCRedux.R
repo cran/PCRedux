@@ -424,7 +424,7 @@ library(chipPCR)
 
 res <- encu(C126EG685[, c(1,2,3,5,17)])
 
-# Show all results in a plot. Not that the interactive parameter is set to
+# Show all results in a plot. Note that the interactive parameter is set to
 # FALSE.
 
 visdat_pcrfit(res, type = "all", interactive = FALSE)
@@ -647,8 +647,8 @@ for (i in 2:3) {
     
     fit <- pcrfit(data = amp_data, cyc = 1, fluo = i, model = l7)
     res <- efficiency(fit, plot = FALSE)
-    plot(fit, pch = 19, lty = 1, type = "l", xlab = "Cycle", ylab = "RFU", 
-         main = "", col = i -1)
+    plot(fit, pch = 19, lty = 1, type = "single", xlab = "Cycle", ylab = "RFU", 
+         main = "", col = i - 1)
     abline(h = res[["fluo"]], v = res[["cpD2"]], col = c("grey", "red"))
     points(res[["cpD2"]], res[["fluo"]], pch = 19)
     

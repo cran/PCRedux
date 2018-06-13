@@ -1,5 +1,5 @@
-bbfd023509b9b23980217fb4aa1b47cc *CHANGELOG
-cc6613a81d8834c6a39c771abc52a3ce *DESCRIPTION
+3f51c490712d4ff6bdfef5343b4bc3b7 *CHANGELOG
+2ee508723f04ac24a2e733a4b37dddaf *DESCRIPTION
 6aafb12ab49805b395a0d4fd5368f5dc *LICENSE
 8e11cae9c7c0d6c0823735a0801503bc *NAMESPACE
 8e1933464735033311bf549c58374b0f *NEWS
@@ -19,9 +19,9 @@ ee08d1beee6afdb4c42dd9a4117c5779 *R/qPCR2fdata.R
 8d81326502463ddda92ef45eda619b14 *R/visdat_pcrfit.R
 d30f2e70447a7d588ab13426a637b51f *README.md
 2abed1b8c0a7b3abd29c19bd7794dc77 *build/vignette.rds
-2a68b907c1c38faa9ff36cac015d242f *data/RAS002.rda
-af1e5b26bbe4e25d112a18dea7e4ab23 *data/RAS002_decisions.rda
-f3899ed7b4feebeb9404786224c8b24a *data/data_sample.rda
+e36bd68ca12ffa3e7b2fdf43701e7d7f *data/RAS002.rda
+8665db912a50192fe46fd2aba0a94c1f *data/RAS002_decisions.rda
+7994e8c94883b43d56f536a8d22d8792 *data/data_sample.rda
 fdb29ec91d1493ec75e3c9fab2a6312c *data/datalist
 306e96e4ffb35ef8e691b73599ae0598 *inst/HCU32_aggR.csv
 ff9d6a3cd8e7e909ac26a487640ac65b *inst/RAS002.rdml
@@ -64,12 +64,12 @@ a569f454eca2b76d68c66b7711c03422 *inst/decision_res_stepone_std.csv
 b3f8e8065732274329880907404f4766 *inst/decision_res_testdat.csv
 5204945369a2721922b798c9cf43e6c9 *inst/decision_res_vermeulen1.csv
 2f6dcbdc2e085ab0fd16ec327e36de12 *inst/decision_res_vermeulen2.csv
-a0406c8713f084bc1bc243cb713752cc *inst/doc/PCRedux.R
-9a311b3006c45964089c1baf1a2cba40 *inst/doc/PCRedux.Rmd
-84cc0a6c930477890dde84945a994bc0 *inst/doc/PCRedux.pdf
+0618f23c259d7a6aa2716c6cb043cb91 *inst/doc/PCRedux.R
+798dd9b3bbc536ef845a382fa1f0b38f *inst/doc/PCRedux.Rmd
+9cb3485ac7eeef799c474bd880d0c0eb *inst/doc/PCRedux.pdf
 a41048a9cb159512711efb17c29cab05 *inst/doc/SI1.R
 de4ada93c67313b2e4e209f2276ebd1d *inst/doc/SI1.Rmd
-3a828c0b48fb9e0281811a89bcc064d0 *inst/doc/SI1.pdf
+0169a185768d828c7d2e3d71179b6550 *inst/doc/SI1.pdf
 bdbc161c09461f7ba62df8688bff8df3 *inst/hookreg.rdml
 65016b98662b944382a97755dc35aee9 *man/PCRedux-package.Rd
 b2db736b4148f1b21adc7dad7659baf8 *man/PCRedux_datasets.rd
@@ -104,7 +104,7 @@ f141827a96ee356097b4dc0846bad840 *tests/testthat/test_visdat_pcrfit.R
 3a765853a352b4c9307c050b63de6611 *vignettes/Logo.pdf
 6665b1dfd95f76304e49f16b73796763 *vignettes/Logo.png
 9c63e39d7602a95b8af9d8e820b8f68f *vignettes/MIT.svg
-9a311b3006c45964089c1baf1a2cba40 *vignettes/PCRedux.Rmd
+798dd9b3bbc536ef845a382fa1f0b38f *vignettes/PCRedux.Rmd
 a1e1cb50765d5ec81930757eee677154 *vignettes/PCRedux.tex.backup
 de4ada93c67313b2e4e209f2276ebd1d *vignettes/SI1.Rmd
 1e28f86a4a7665b11fa5b23e771bb4e7 *vignettes/literature.bib

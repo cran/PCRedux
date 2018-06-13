@@ -2,7 +2,7 @@ Package: PCRedux
 Type: Package
 Title: Quantitative Polymerase Chain Reaction (qPCR) Data Mining and
         Machine Learning Helper Tool
-Version: 0.2.6
+Version: 0.2.6-1
 Date: 2018-01-23
 Authors@R: c(person("Stefan", "Roediger", email = "stefan.roediger@b-tu.de", role = c("cre", "aut")),
              person("Michal", "Burdukiewicz", email = "michalburdukiewicz@gmail.com", role = c("aut")),
@@ -22,11 +22,11 @@ Suggests: data.table, dplyr, knitr, RDML, readxl, rmarkdown, xtable
 NeedsCompilation: no
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
-Packaged: 2018-05-13 21:20:20 UTC; tux
+Packaged: 2018-06-13 13:58:41 UTC; tux
 Author: Stefan Roediger [cre, aut],
   Michal Burdukiewicz [aut],
   Andrej-Nikolai Spiess [aut],
   Konstantin A. Blagodatskikh [aut]
 Maintainer: Stefan Roediger <stefan.roediger@b-tu.de>
 Repository: CRAN
-Date/Publication: 2018-05-14 08:05:16 UTC
+Date/Publication: 2018-06-13 21:38:05 UTC
