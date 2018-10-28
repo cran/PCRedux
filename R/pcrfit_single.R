@@ -50,8 +50,8 @@
 #'   "slope_bg" \tab slope of the first cycles \tab numeric \cr
 #'   "intercept_bg" \tab intercept of the first cycles \tab numeric \cr
 #'   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence \tab numeric \cr
-#'   "changepoint_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
-#'   "changepoint_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
+#'   "cp_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
+#'   "cp_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
 #'   "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
 #'   "amptester_shapiro" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
 #'   "amptester_lrt" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
@@ -109,12 +109,12 @@ pcrfit_single <- function(x) {
   length_cycle <- length(x)
   cycles <- 1L:length_cycle
   
-  # Smooth data with moving average for other data
+  # Smooth data with Savitzky-Golay smoothing filter for other data
   # analysis steps.
   dat_smoothed <- chipPCR::smoother(cycles, x)
   
   # Calculate the first derivative
-  res_diffQ <- suppressMessages(MBmca::diffQ(cbind(cycles[-c(1,2)], dat_smoothed[-c(1,2)]), verbose = TRUE)$xy)
+  res_diffQ <- try(suppressMessages(MBmca::diffQ(cbind(cycles[-c(1,2)], dat_smoothed[-c(1,2)]), verbose = TRUE)$xy), silent=TRUE)
   
   # Determine highest and lowest amplification curve values
   fluo_range <- stats::quantile(x, c(0.01, 0.99), na.rm = TRUE)
@@ -142,6 +142,7 @@ pcrfit_single <- function(x) {
 
   # Determine the head to tail ratio
   res_head2tail_ratio <- PCRedux::head2tailratio(x)
+  if(res_head2tail_ratio > 50) {res_head2tail_ratio <- 0}
 
   # Determine the slope from the cycles 2 to 11
   res_lm_fit <- PCRedux::earlyreg(x = cycles, x)
@@ -160,14 +161,14 @@ pcrfit_single <- function(x) {
   }
 
   # Calculate change points
-  res_changepoint_e.agglo <- try(length(ecp::e.agglo(as.matrix(res_diffQ[["d(F) / dT"]]))$estimates), silent = TRUE)
-  if (class(res_changepoint_e.agglo) == "try-error") {
-    res_changepoint_e.agglo <- length_cycle
+  res_cp_e.agglo <- try(length(ecp::e.agglo(as.matrix(res_diffQ[["d(F) / dT"]]))$estimates), silent = TRUE)
+  if (class(res_cp_e.agglo) == "try-error") {
+    res_cp_e.agglo <- length_cycle
   }
 
   # Bayesian analysis of change points
-  res_bcp_tmp <- bcp::bcp(res_diffQ[["d(F) / dT"]])
-  res_bcp_tmp <- res_bcp_tmp$posterior.prob >= 0.6
+  res_bcp_tmp <- try(bcp::bcp(res_diffQ[["d(F) / dT"]]), silent = TRUE)
+  res_bcp_tmp <- try(res_bcp_tmp$posterior.prob >= 0.6, silent = TRUE)
   res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length()))
   if (class(res_bcp) == "try-error") {
     res_bcp <- 0
@@ -182,10 +183,10 @@ pcrfit_single <- function(x) {
 
   # Estimate the spread of the approximate local minima and maxima of the curve data
 
-  res_mcaPeaks <- MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2])
-  peaks_ratio <- base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2]))
-  if (is.infinite(peaks_ratio)) {
-    peaks_ratio <- 0
+  res_mcaPeaks <- try(MBmca::mcaPeaks(res_diffQ[, 1], res_diffQ[, 2]), silent = TRUE)
+  res_peaks_ratio <- try(base::diff(range(res_mcaPeaks$p.max[, 2])) / base::diff(range(res_mcaPeaks$p.min[, 2])), silent = TRUE)
+  if (is.infinite(res_peaks_ratio) || class(res_peaks_ratio) == "try-error" || is.na(res_peaks_ratio)) {
+    res_peaks_ratio <- 0
   }
 
   # Estimate the slope between the minimum and the maximum of the second derivative
@@ -201,6 +202,7 @@ pcrfit_single <- function(x) {
   if (res_diffQ2[[3]][1] < res_diffQ2[1] && res_diffQ2[1] < res_diffQ2[[3]][2] && cpD2_range > 1 && cpD2_range < 9) {
     ROI <- round(c(res_diffQ2[[1]], res_diffQ2[[3]]))
     res_loglin_slope <- try(coefficients(lm(x[ROI] ~ ROI))[["ROI"]], silent = FALSE)
+    if(res_loglin_slope > 0.45) {res_loglin_slope <- 0}
   } else {
     res_loglin_slope <- 0
   }
@@ -217,7 +219,6 @@ pcrfit_single <- function(x) {
   if (class(res_coef) == "try-error") {
     res_coef <- c(b = 0, f = 20000)
   }
-
 
   res_convInfo_iteratons <- try(pcrfit_startmodel[["convInfo"]][["finIter"]], silent = TRUE)
   if (class(res_convInfo_iteratons) == "try-error") {
@@ -267,9 +268,9 @@ pcrfit_single <- function(x) {
     # Calculate the standard deviation of the fluorescence starting from
     # cylce 2 to the takeoff point
     if (!is.na(res_takeoff_reverse[[1]])) {
-      sd_bg <- try(sd(x[2L:res_takeoff_reverse[[1]]]), silent = TRUE)
+      res_sd_bg <- try(sd(x[2L:res_takeoff_reverse[[1]]]), silent = TRUE)
     } else {
-      sd_bg <- sd(x[1L:8])
+      res_sd_bg <- sd(x[1L:8])
     }
     if (class(res_takeoff_reverse) == "try-error") {
       res_takeoff_reverse <- list(0, 1)
@@ -279,7 +280,7 @@ pcrfit_single <- function(x) {
     # Calculate the standard deviation of the fluorescence starting from
     # cylce 2 to cycle 8 if the the takeoff point cannot be
     # determined
-    sd_bg <- sd(x[1L:8])
+    res_sd_bg <- sd(x[1L:8])
   }
     names(res_takeoff_reverse) <- c("tdp", "f.tdp")
 
@@ -318,8 +319,14 @@ pcrfit_single <- function(x) {
       )],
       silent = TRUE
     )
+    
+    
     if (class(res_efficiency_tmp) != "try-error") {
       res_cpDdiff <- try(abs(res_efficiency_tmp[["cpD1"]] - res_efficiency_tmp[["cpD2"]]))
+      
+      if(res_efficiency_tmp$init2 < -200 || as.character(res_efficiency_tmp$init2) == "NaN") {res_efficiency_tmp$init2 <- 0}
+      if(res_efficiency_tmp$eff > 2.2 || as.character(res_efficiency_tmp$eff) == "NaN") {res_efficiency_tmp$eff <- 0}
+      
     } else {
       res_efficiency_tmp <- list(
         eff = 0,
@@ -398,7 +405,8 @@ pcrfit_single <- function(x) {
     fluo = res_efficiency_tmp[["fluo"]],
     slope_bg = res_lm_fit[["slope"]],
     intercept_bg = res_lm_fit[["intercept"]],
-    sd_bg = sd_bg,
+    sigma_bg = res_lm_fit[["sigma"]],
+    sd_bg = res_sd_bg,
     head2tail_ratio = res_head2tail_ratio,
     mblrr_slope_pt = res_mblrr[5],
     mblrr_intercept_bg = res_mblrr[1],
@@ -408,11 +416,11 @@ pcrfit_single <- function(x) {
     mblrr_cor_pt = res_mblrr[6],
     # Areas
     polyarea = res_polyarea,
-    peaks_ratio = peaks_ratio,
+    peaks_ratio = res_peaks_ratio,
     autocorellation = res_autocorrelation,
     # Change points
-    changepoint_e.agglo = res_changepoint_e.agglo,
-    changepoint_bcp = res_bcp,
+    cp_e.agglo = res_cp_e.agglo,
+    cp_bcp = res_bcp,
     # Amptester
     amptester_shapiro = res_amptester@decisions["shap.noisy"][[1]],
     amptester_lrt = res_amptester@decisions["lrt.test"][[1]],
