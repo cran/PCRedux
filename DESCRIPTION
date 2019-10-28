@@ -1,9 +1,9 @@
 Package: PCRedux
 Type: Package
 Title: Quantitative Polymerase Chain Reaction (qPCR) Data Mining and
-        Machine Learning Helper Tool
-Version: 0.2.6-4
-Date: 2018-10-28
+        Machine Learning Toolkit
+Version: 1.0-1
+Date: 2019-10-28
 Authors@R: c(person("Stefan", "Roediger", 
              email = "stefan.roediger@b-tu.de", 
              comment = c(ORCID = "0000-0002-1441-6512"),
@@ -17,25 +17,32 @@ Authors@R: c(person("Stefan", "Roediger",
              role = c("aut")),
              person("Konstantin A.", "Blagodatskikh", 
              email = "k.blag@yandex.ru", 
-             role = c("aut")))
-Description: Extracts features from amplification curve data of quantitative Polymerase Chain Reactions (qPCR) (Pabinger, Stephan, Stefan Roediger, Albert Kriegner, Klemens Vierlinger, and Andreas Weinhauusel (2014) <doi:10.1016/j.bdq.2014.08.002>) for machine learning purposes. Helper functions prepare the amplification curve data for processing as functional data (e.g., Hausdorff distance) or enable the plotting of amplification curve classes (negative, ambiguous, positive). The hookreg() and hookregNL() functions can be used to predict amplification curves with an hook effect-like curvature. The pcrfit_single() function can be used to extract features from an amplification curve.
+             role = c("aut")),
+             person("Dominik", "Rafacz", 
+             email = "dominikrafacz@gmail.com", 
+             role = c("ctb")))
+Description: Extracts features from amplification curve data of quantitative Polymerase Chain Reactions (qPCR) (Pabinger S. et al. (2014) <doi:10.1016/j.bdq.2014.08.002>) for machine learning purposes. Helper functions prepare the amplification curve data for processing as functional data (e.g., Hausdorff distance) or enable the plotting of amplification curve classes (negative, ambiguous, positive). The hookreg() and hookregNL() functions (Burdukiewicz M. et al. (2018) <doi:10.1016/j.bdq.2018.08.001>) can be used to predict amplification curves with an hook effect-like curvature. The pcrfit_single() function can be used to extract features from an amplification curve.
 License: MIT + file LICENSE
 LazyLoad: yes
 LazyData: yes
 URL: https://CRAN.R-project.org/package=PCRedux
-BugReports: https://github.com/devSJR/PCRedux/issues
-Depends: R (>= 3.3.0)
-Imports: bcp, changepoint, caret, chipPCR, ecp, fda.usc, FFTrees,
-        magrittr, MBmca, pbapply, plotly, pracma, qpcR, robustbase,
-        randomForest, stats, testthat, utils, visdat, zoo
-Suggests: data.table, dplyr, knitr, RDML, readxl, rmarkdown, xtable
+BugReports: https://github.com/PCRuniversum/PCRedux/issues
+Depends: R (>= 3.5.0)
+Imports: bcp, changepoint, chipPCR, ecp, fda.usc, MBmca, pbapply,
+        pracma, qpcR, robustbase, shiny, stats, utils, zoo
+Suggests: DT, FFTrees, knitr, RDML, randomForest, readxl, rmarkdown,
+        spelling, testthat, xtable
 NeedsCompilation: no
-RoxygenNote: 6.1.0
-Packaged: 2018-10-28 12:19:42 UTC; tux
+VignetteBuilder: knitr
+Encoding: UTF-8
+Language: en-US
+RoxygenNote: 6.1.1
+Packaged: 2019-10-28 22:19:55 UTC; tux
 Author: Stefan Roediger [cre, aut] (<https://orcid.org/0000-0002-1441-6512>),
   Michal Burdukiewicz [aut] (<https://orcid.org/0000-0001-8926-582X>),
   Andrej-Nikolai Spiess [aut],
-  Konstantin A. Blagodatskikh [aut]
+  Konstantin A. Blagodatskikh [aut],
+  Dominik Rafacz [ctb]
 Maintainer: Stefan Roediger <stefan.roediger@b-tu.de>
 Repository: CRAN
-Date/Publication: 2018-10-28 12:50:03 UTC
+Date/Publication: 2019-10-28 22:40:02 UTC

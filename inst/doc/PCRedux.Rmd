@@ -1,0 +1,19 @@
+---
+title: "PCRedux package - an overview"
+author: "The PCRedux package authors"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::pdf_document:
+    number_sections: true
+    toc: true
+    toc_depth: 5
+header-includes:
+    - \usepackage[font={small}]{caption}
+bibliography: "literature.bib"
+vignette: >
+  %\VignetteIndexEntry{PCRedux package - an overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+As the size of PCRedux vignette greatly exceeds the CRAN limits, but we do not see any way to shorten it, the vignette was moved here: https://github.com/PCRuniversum/PCRedux-supplements/blob/master/PCRedux.pdf.

@@ -36,6 +36,8 @@
 #'   "eff" \tab qPCR amplification efficiency \tab numeric \cr
 #'   "cpD1" \tab maximum of the first derivative curve \tab numeric \cr
 #'   "cpD2" \tab maximum of the second derivative curve \tab numeric \cr
+#'   "cpD2_approx" \tab maximum of the second derivative curve calculated by the approximate derivative \tab numeric \cr
+#'   "cpD2_ratio" \tab a value calculated from the ratio between cpD2 and cpD2_approx \tab numeric \cr
 #'   "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
 #'   "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
 #'   "top" \tab takeoff point. When no top can be determined, the tob value is set to the first cycle number. \tab numeric \cr
@@ -43,8 +45,15 @@
 #'   "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
 #'   "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
 #'   "sliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
-#'   "b_slope" \tab Is the slope of seven parameter model \cr
-#'   "f_intercept" \tab Is the intercept of the seven parameter model \cr
+#'   "b_slope" \tab Is the slope of the seven parameter model \tab  numeric \cr
+#'   "b_model_param" \tab Is the b model parameter of the five parameter model \tab  numeric \cr
+#'   "c_model_param" \tab Is the c model parameter of the five parameter model \tab  numeric \cr
+#'   "d_model_param" \tab Is the d model parameter of the five parameter model \tab  numeric \cr
+#'   "e_model_param" \tab Is the e model parameter of the five parameter model \tab  numeric \cr
+#'   "f_model_param" \tab Is the f model parameter of the five parameter model \tab  numeric \cr
+#'   "f_intercept" \tab Is the intercept of the seven parameter model \tab  numeric \cr
+#'   "k1_model_param" \tab Is the k1 model parameter of the seven parameter model \tab  numeric \cr
+#'   "k2_model_param" \tab Is the k2 model parameter of the seven parameter model \tab  numeric \cr
 #'   "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
 #'   "cpDdiff" \tab absolute difference between cpD1 and cpD2 \tab numeric \cr
 #'   "slope_bg" \tab slope of the first cycles \tab numeric \cr
@@ -79,7 +88,8 @@
 #'   "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
 #'   "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
 #'   "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
-#'   "sd_bg \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
+#'   "sd_bg" \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
+#'   "central_angle" \tab shows the central angle calculated from the maxima and minima of the derivatives \tab numeric \cr
 #' }
 #' @details Details can be found in the vignette.
 #' @importFrom qpcR pcrfit
@@ -109,19 +119,22 @@ pcrfit_single <- function(x) {
   length_cycle <- length(x)
   cycles <- 1L:length_cycle
   
-  # Smooth data with Savitzky-Golay smoothing filter for other data
+  # Smooth data with moving average smoothing filter for further data
   # analysis steps.
-  dat_smoothed <- chipPCR::smoother(cycles, x)
+  dat_smoothed <- chipPCR::smoother(cycles, x, method = "mova")
+  
+  guess_direction <- ifelse(median(head(dat_smoothed, 5)) > (median(tail(dat_smoothed, 5)) + mad(tail(dat_smoothed, 5))), 
+           'max', 'min')
   
   # Calculate the first derivative
-  res_diffQ <- try(suppressMessages(MBmca::diffQ(cbind(cycles[-c(1,2)], dat_smoothed[-c(1,2)]), verbose = TRUE)$xy), silent=TRUE)
+  res_diffQ <- try(suppressMessages(MBmca::diffQ(cbind(cycles[-c(1:3)], dat_smoothed[-c(1:3)]), verbose = TRUE)$xy), silent = TRUE)
   
   # Determine highest and lowest amplification curve values
   fluo_range <- stats::quantile(x, c(0.01, 0.99), na.rm = TRUE)
 
   # for qpcR
   dat <- cbind(cyc = cycles, fluo = x)
-  dat_reverse <- cbind(cyc = cycles, fluo = (max(x) - rev(x)))
+  dat_reverse <- cbind(cyc = cycles, fluo = (max(dat_smoothed) - rev(dat_smoothed)))
   # inefficient kludge to find l4 model
   data("sysdata", package = "qpcR", envir = parent.frame())
 
@@ -169,7 +182,7 @@ pcrfit_single <- function(x) {
   # Bayesian analysis of change points
   res_bcp_tmp <- try(bcp::bcp(res_diffQ[["d(F) / dT"]]), silent = TRUE)
   res_bcp_tmp <- try(res_bcp_tmp$posterior.prob >= 0.6, silent = TRUE)
-  res_bcp <- try((which(as.factor(res_bcp_tmp) == TRUE) %>% length()))
+  res_bcp <- try(length(which(as.factor(res_bcp_tmp) == TRUE)))
   if (class(res_bcp) == "try-error") {
     res_bcp <- 0
   }
@@ -190,7 +203,11 @@ pcrfit_single <- function(x) {
   }
 
   # Estimate the slope between the minimum and the maximum of the second derivative
-  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles[-c(1,2)], dat_smoothed[-c(1,2)]), verbose = FALSE, fct = min, inder = TRUE))
+  res_diffQ2 <- suppressMessages(MBmca::diffQ2(cbind(cycles[-c(1:3)], dat_smoothed[-c(1:3)]), 
+                                               verbose = FALSE, 
+                                               fct = get(guess_direction, pos = "package:base"), 
+                                               inder = TRUE))
+  
   # difference between the minimum and the maximum of the approximate second derivative.
   cpD2_range <- diff(res_diffQ2[[3]])
   if(cpD2_range > 200) cpD2_range <- length_cycle
@@ -208,40 +225,97 @@ pcrfit_single <- function(x) {
   }
 
   # Perform an autocorrelation analysis
-  res_autocorrelation <- PCRedux::autocorrelation_test(y = x)
+  res_autocorrelation <- PCRedux::autocorrelation_test(y = dat_smoothed)
   if(res_autocorrelation == "n.s." || is.na(res_autocorrelation)) res_autocorrelation <- 0
-
+  
+  # Fitting of non-linear multiparameter models
   # Fit sigmoidal models to curve data
-
-  pcrfit_startmodel <- try(qpcR::pcrfit(dat, 1, 2, model = l7), silent = TRUE)
-
-  res_coef <- try(coefficients(pcrfit_startmodel), silent = TRUE)
+  
+  b_val <- -10000
+  c_val <- -10000
+  d_val <- 10000
+  e_val <- 10000
+  f_val <- -10000
+  k_val <- -10000
+  k1_val <- -10000
+  k2_val <- -10000
+  
+  # Get the parameters from the four-parameter model
+  pcrfit_model_l4 <- try(qpcR::pcrfit(dat, 1, 2, model = l4), silent = TRUE)
+  res_coef_model_l4 <- try(coefficients(pcrfit_model_l4), silent = TRUE)
+  if (class(res_coef_model_l4) == "try-error") {
+    res_coef_model_l4 <- c(b = b_val, c = c_val, d = d_val, e = e_val)
+  }
+  
+  # Get the parameters from the five-parameter model
+  pcrfit_model_l5 <- try(qpcR::pcrfit(dat, 1, 2, model = l5), silent = TRUE)
+  res_coef_model_l5 <- try(coefficients(pcrfit_model_l5), silent = TRUE)
+  if (class(res_coef_model_l5) == "try-error") {
+    res_coef_model_l5 <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val)
+  }
+  
+  # Get the parameters from the five-parameter model
+  pcrfit_model_l6 <- try(qpcR::pcrfit(dat, 1, 2, model = l6), silent = TRUE)
+  res_coef_model_l6 <- try(coefficients(pcrfit_model_l6), silent = TRUE)
+  if (class(res_coef_model_l6) == "try-error") {
+    res_coef_model_l6 <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k = k_val)
+  }
+  
+  # Get the parameters from the seven-parameter model
+  pcrfit_model_l7 <- try(qpcR::pcrfit(dat, 1, 2, model = l7), silent = TRUE)
+  res_coef <- try(coefficients(pcrfit_model_l7), silent = TRUE)
   if (class(res_coef) == "try-error") {
-    res_coef <- c(b = 0, f = 20000)
+    res_coef <- c(b = b_val, c = c_val, d = d_val, e = e_val, f = f_val, k1 = k1_val, k2 = k2_val)
   }
 
-  res_convInfo_iteratons <- try(pcrfit_startmodel[["convInfo"]][["finIter"]], silent = TRUE)
+  res_convInfo_iteratons <- try(pcrfit_model_l7[["convInfo"]][["finIter"]], silent = TRUE)
   if (class(res_convInfo_iteratons) == "try-error") {
     res_convInfo_iteratons <- 5000
   }
 
+  # Determine the optimal model based on the AICc
+
+  res_AICc <- list(l4 = if(class(pcrfit_model_l4)[1] == "try-error") {
+    NA
+  } else {
+    try(AICc(pcrfit_model_l4), silent = TRUE)
+  }, 
+  l5 = if(class(pcrfit_model_l5)[1] == "try-error") {
+    NA
+  } else {
+    try(AICc(pcrfit_model_l5), silent = TRUE)
+  },
+  l6 = if(class(pcrfit_model_l6)[1] == "try-error") {
+    NA
+  } else {
+    try(AICc(pcrfit_model_l6), silent = TRUE)
+  },
+  l7 = if(class(pcrfit_model_l7)[1] == "try-error") {
+    NA
+  } else {
+    try(AICc(pcrfit_model_l7), silent = TRUE)
+  }
+  )
+  
+  res_fit_model <- as.factor(which(res_AICc == min(unlist(res_AICc), na.rm = TRUE)))
+
+  if (length(res_fit_model) == 0) {
+      res_fit_model <- as.factor("l0")
+  }
+  
+  if(names(res_fit_model) == "l4") res_fit <- pcrfit_model_l4
+  if(names(res_fit_model) == "l5") res_fit <- pcrfit_model_l5
+  if(names(res_fit_model) == "l6") res_fit <- pcrfit_model_l6
+  if(names(res_fit_model) == "l7") res_fit <- pcrfit_model_l7
+  if(names(res_fit_model) == "l0") res_fit <- "try-error"
+  
+  # Fit the "reverse" model
   pcrfit_startmodel_reverse <- try(qpcR::pcrfit(dat_reverse, 1, 2), silent = TRUE)
-
-  res_fit <- try(qpcR::mselect(
-    pcrfit_startmodel,
-    verbose = FALSE, fctList = list(l4, l5, l6, l7)
-  ), silent = TRUE)
-
+  
   res_fit_reverse <- try(qpcR::mselect(
     pcrfit_startmodel_reverse,
     verbose = FALSE, fctList = list(l4, l5, l6, l7)
   ), silent = TRUE)
-
-  # Determine the model suggested by the mselect function based on the AICc
-  res_fit_model <- try(names(which(res_fit[["retMat"]][, "AICc"] == min(res_fit[["retMat"]][, "AICc"]))), silent = TRUE)
-  if (class(res_fit_model) == "try-error") {
-    res_fit_model <- as.factor("l0")
-  }
 
   # Determine the model for the reverse data suggested by the
   # mselect function based on the AICc
@@ -351,37 +425,61 @@ pcrfit_single <- function(x) {
     res_cpDdiff <- 0
   }
   
+  # Calculate the ratio between the the approximate second derivative maximum 
+  # cpD2_approx and the second derivative maximum cpD2
+  
+  cpD2_ratio_tmp <- res_efficiency_tmp[["cpD2"]] / res_diffQ2[[3]][1]
+  if(cpD2_ratio_tmp == Inf) cpD2_ratio <- 0  
+  cpD2_ratio <- cpD2_ratio_tmp
+
+  
+  # The cpD2_ratio is a binary value, which is based on a range empirically
+  # determined on the data_sample data set.
+  # 
+  # if(cpD2_ratio_tmp > 0.8 && cpD2_ratio_tmp < 1.1) {
+  #     cpD2_ratio <- 1
+  # } else {
+  #     cpD2_ratio <- 0
+  # }
+
+  
 # # Calculate angle
 #     # Get x coordinates for the vectors be the inder 
 #     # function. The first derivative maximum (FDM) is the
 #     # center. The second derivative maximum (SDM) is the left
 #     # and second derivative minimum (SDm) is the right point of
 #     # the vectors.
-# 
-#     res_cpD <- summary(chipPCR::inder(x = cycles, y = x))[c(2,1,3)]
-# 
-#     res_val <- data.frame(cpD = res_cpD, rfu = NA)
-# 
-#     # The y coordinates get determined at the point of the
-# 
-#     for(i in 1L:3) {
-#         res_val[i, 2] <- res[which(res[, "x"] == res_cpD[i]), "y"]
-#     }
-# 
-#     res_val[, 2] <- res_val[, 2] / res_val[2, 2]
-# 
-#     vec_a <- c(x = (res_val[3, 1] - res_val[2, 1]), y = (res_val[3, 2] - res_val[2, 2]))
-#     vec_b <- c(x = (res_val[1, 1] - res_val[2, 1]), y = (res_val[1, 2] - res_val[2, 2]))
-# 
-#     crossprod_ab <- as.numeric(vec_a %*% vec_b)
-# 
-#     lampda <- acos(crossprod_ab / (sum(vec_a^2)^0.5 * sum(vec_b^2)^0.5)) / (pi/180)
+
+    origin <- data.frame(res_diffQ2[["Tm"]][1], res_diffQ2[["fluoTm"]][1])
+    point_x1 <- data.frame(res_diffQ2[["xTm1.2.D2"]][1], res_diffQ2[["yTm1.2.D2"]][1])
+    point_x2 <- data.frame(res_diffQ2[["xTm1.2.D2"]][2], res_diffQ2[["yTm1.2.D2"]][2])
+
+    # Calculation of vectors (origin is the starting point)
+    u <- data.frame(
+      u_x = origin[1] - point_x1[1],
+      u_y = origin[2] - point_x1[2]
+    )
+    
+    v <- data.frame(
+      v_x = origin[1] - point_x2[1],
+      V_y = origin[2] - point_x2[2]
+    )
+    
+    
+    # Determine the dot product and the absolute values
+    dot_product <- sum(u * v)
+    length_of_vectors <- sqrt(sum(u^2)) * sqrt(sum(v^2))
+    
+    # Calculate central angle
+    res_angle <- dot_product / length_of_vectors
 
   all_results <- data.frame(
     # Quantification points, derivatives, efficiencies,
     # curve fitting
     cpD1 = res_efficiency_tmp[["cpD1"]],
     cpD2 = res_efficiency_tmp[["cpD2"]],
+    cpD2_approx = res_diffQ2[[3]][1],
+    cpD2_ratio = cpD2_ratio,
     eff = res_efficiency_tmp[["eff"]],
     sliwin = res_sliwin[[1]],
     cpDdiff = res_cpDdiff,
@@ -394,9 +492,16 @@ pcrfit_single <- function(x) {
     bg.stop = res_bg.max[2],
     amp.stop = res_bg.max[3],
     b_slope = res_coef[["b"]],
+    b_model_param = res_coef_model_l5[["b"]],
+    c_model_param = res_coef_model_l5[["c"]],
+    d_model_param = res_coef_model_l5[["d"]],
+    e_model_param = res_coef_model_l5[["e"]],
+    f_model_param = res_coef_model_l5[["f"]],
     f_intercept = res_coef[["f"]],
+#    k1_model_param = res_coef[["k1"]],
+#    k2_model_param = res_coef[["k2"]],
     convInfo_iteratons = res_convInfo_iteratons,
-    qPCRmodel = res_fit_model[[1]],
+    qPCRmodel = factor(names(res_fit_model)), # res_fit_model[[1]],
     qPCRmodelRF = res_fit_model_reverse[[1]],
     # Signal levels
     minRFU = fluo_range[[1]],
@@ -433,8 +538,8 @@ pcrfit_single <- function(x) {
     hookreg_hook = res_hookreg,
     hookreg_hook_slope = res_hookreg_simple[["slope"]],
     hookreg_hook_delta = res_hookreg_simple[["hook.delta"]],
-#     # Angle
-#     angle = lampda,
+    # Angle
+    central_angle = res_angle,
     # Number of Cycles
     number_of_cycles = length_cycle,
     # Identifier

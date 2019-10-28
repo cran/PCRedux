@@ -12,12 +12,12 @@ decision_modus(data, variables = c("a", "n", "y"), max_freq = TRUE)
 \item{variables}{is the class to look for.}
 
 \item{max_freq}{is a logical parameter (default == TRUE) delivers either the
-most ocurring class or a summary.}
+most occurring class or a summary.}
 }
 \description{
 \code{decision_modus} is a function that can be used to find the most frequent
 (modus) decision. The classes can be defined by the user (e.g., a", "n", "y"
--> "ambiguos", "negaive", "positive"). This function is useful if large
+-> "ambiguous", "negative", "positive"). This function is useful if large
 collections of varying decision (e.g., "a", "a", "a", "n", "n") need to be
 condensed to a single decision (3 x "a", 2 x "n" -> "a").
 }
@@ -33,15 +33,13 @@ decision_modus(c("a","a","y","n","b"))
 
 # Second example
 # Analyze data from the decision_res_testdat.csv data file
-library(data.table)
-library(magrittr)
 filename <- system.file("decision_res_testdat.csv", package = "PCRedux")
-my_data <- as.data.frame(fread(filename))
+my_data <- read.csv(filename)
 head(my_data)
 
-dec <- lapply(1L:nrow(my_data), function(i) {
+dec <- unlist(lapply(1L:nrow(my_data), function(i) {
        decision_modus(my_data[i, 2:4])
-}) \%>\% unlist
+}))
 
 names(dec) <- my_data[, 1]
 dec
