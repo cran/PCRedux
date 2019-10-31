@@ -1,5 +1,5 @@
-e8411422c498dc141d836720fc943227 *CHANGELOG
-619e7fe48ead9776d2f2e373f5fd5a48 *DESCRIPTION
+7497447f025353a72c56686f56a21640 *CHANGELOG
+a6857c6a1d2dc0208f1ff96c4d5a7b19 *DESCRIPTION
 6aafb12ab49805b395a0d4fd5368f5dc *LICENSE
 aa2ff213ad14c5ae4bf683f5e7ecde27 *NAMESPACE
 8e1933464735033311bf549c58374b0f *NEWS
@@ -12,7 +12,7 @@ b10bf0bd1a1d5953dc30dfb26eae0c1c *R/PCRedux.R
 0f96d05d95e5785f28aab3e77da66163 *R/hookreg.R
 8127d971c72c625b7690f2f27175c0c5 *R/hookregNL.R
 ec25edd888e76e48737f60a37948721f *R/mblrr.R
-5fee6c73cd7ea387f280e233f8a4a6cf *R/pcrfit_single.R
+f85a8efd720ec827e979af8f4115c67e *R/pcrfit_single.R
 93f478f017f3212ec8597293d7e38b6f *R/performeR.R
 23b0ae4bcbddae012166c748e259236b *R/qPCR2fdata.R
 b5b4f6e445b72f644be9dad25255a025 *R/run_PCRedux.R
@@ -22,8 +22,10 @@ e972020c8d41e4681023c8e872d3c699 *README.md
 a8ff7df7c34c1f31fa1ead6cfb0f4050 *build/vignette.rds
 2a68b907c1c38faa9ff36cac015d242f *data/RAS002.rda
 af1e5b26bbe4e25d112a18dea7e4ab23 *data/RAS002_decisions.rda
-d279b78d7ba806df5b132f1ab1f939ef *data/data_sample.rda
-fdb29ec91d1493ec75e3c9fab2a6312c *data/datalist
+4f0817750d07d0967a3b566a4d82f3b3 *data/data_sample.rda
+0ca21096bff582a00de51b8ef327b00c *data/datalist
+ceb6ec43a54bdc853fee533b1f392c64 *data/decision_res_kbqPCR.rda
+3e8e9995e6b07ddbe413f9d2082dd863 *data/kbqPCR.rda
 306e96e4ffb35ef8e691b73599ae0598 *inst/HCU32_aggR.csv
 bb7f32551094aa901967b8197e32f745 *inst/PCRedux-app/example_dat.csv
 497b97e1ac399967b0d82bf305f082a4 *inst/PCRedux-app/functions.R
@@ -80,13 +82,13 @@ b3f8e8065732274329880907404f4766 *inst/decision_res_testdat.csv
 5204945369a2721922b798c9cf43e6c9 *inst/decision_res_vermeulen1.csv
 2f6dcbdc2e085ab0fd16ec327e36de12 *inst/decision_res_vermeulen2.csv
 ba526f3f055ee37762032991e2d42214 *inst/doc/PCRedux.Rmd
-7f087b05c1521f8376e5f972d3c7eebc *inst/doc/PCRedux.pdf
+1e1c4f81b14c6a09403e3df055011e53 *inst/doc/PCRedux.pdf
 4baa1f1cb9f5d59dcf3497fa9e950c0b *inst/doc/SI1.R
 ec449ca7121549fb8126ab10c606f0b3 *inst/doc/SI1.Rmd
-cf45737942382d8d4e48afeffa555327 *inst/doc/SI1.pdf
+deeb4cd6e833059ffe878f83688327df *inst/doc/SI1.pdf
 bdbc161c09461f7ba62df8688bff8df3 *inst/hookreg.rdml
 4f2a6492507dede56c01003a5adfcf3e *man/PCRedux-package.Rd
-b2db736b4148f1b21adc7dad7659baf8 *man/PCRedux_datasets.rd
+92e238395932e401007e171d2e6a43cb *man/PCRedux_datasets.rd
 ae4822e5da4f232d1a4e4dc8dc34e822 *man/autocorrelation_test.Rd
 ed09b13680826454c5ae7ab3bd99bf10 *man/decision_modus.Rd
 8285d0e9c008437515d1cec49e04d0a0 *man/earlyreg.Rd
