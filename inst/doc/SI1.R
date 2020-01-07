@@ -1,20 +1,20 @@
-## ---- eval=FALSE, echo=TRUE----------------------------------------------
+## ---- eval=FALSE, echo=TRUE---------------------------------------------------
 #  # Select your local mirror
 #  install.packages("PCRedux")
 
-## ---- eval=FALSE, echo=TRUE----------------------------------------------
+## ---- eval=FALSE, echo=TRUE---------------------------------------------------
 #  # The following command points to the help for download and install of packages
 #  # from CRAN-like repositories or from local files.
 #  ?install.packages()
 
-## ---- eval=FALSE, echo=TRUE----------------------------------------------
+## ---- eval=FALSE, echo=TRUE---------------------------------------------------
 #  # Install devtools, if you haven't already.
 #  install.packages("devtools")
 #  
 #  library(devtools)
 #  install_github("devSJR/PCRedux")
 
-## ----eval=TRUE, echo=FALSE, results="asis"-------------------------------
+## ----eval=TRUE, echo=FALSE, results="asis"------------------------------------
 # Load the RDML package for reading of the hookreg.rdml-file from the PCRedux
 # package.
 
@@ -65,7 +65,7 @@ mtext("F", cex = 1.8, side = 3, adj = 0, font = 2)
 matplot(data[, 1], data[, 96:97], type="l", lty=1, lwd=2, ylab="RFU", xlab="Cycle")
 mtext("G", cex = 1.8, side = 3, adj = 0, font = 2)
 
-## ----eval=TRUE, echo=FALSE, results="asis"-------------------------------
+## ----eval=TRUE, echo=FALSE, results="asis"------------------------------------
 library(readxl)
 library(xtable)
 options(xtable.comment=FALSE)
@@ -88,7 +88,7 @@ comment=FALSE,
 table.placement = "!ht", scalebox='0.65'
 )
 
-## ---- echo=TRUE, message=FALSE, warning=FALSE----------------------------
+## ---- echo=TRUE, message=FALSE, warning=FALSE---------------------------------
 # Load PCRedux package to obtain the data and make the hookreg() function
 # available.
 library(PCRedux)
@@ -118,7 +118,7 @@ res_hookreg_table <- data.frame(sample=as.character(res_hookreg[["sample"]]),
                                 hook=res_hookreg[["hook"]]
 )
 
-## ----results='asis', echo=TRUE, message=FALSE, warning=FALSE-------------
+## ----results='asis', echo=TRUE, message=FALSE, warning=FALSE------------------
 # Load the xtable to create a LaTeX table from the `res_hookreg_table`.
 library(xtable)
 options(xtable.comment=FALSE)
@@ -134,7 +134,7 @@ print(xtable(res_hookreg_table,
       table.placement = "!ht", scalebox='0.65'
 )
 
-## ---- echo=TRUE, message=FALSE, warning=FALSE----------------------------
+## ---- echo=TRUE, message=FALSE, warning=FALSE---------------------------------
 # Note that the PCRedux package needs to be loaded (see above).
 # Load the qpcR package to prevent messages during the start.
 suppressMessages(library(qpcR))
@@ -156,7 +156,7 @@ res_hookregNL_table <- data.frame(sample=as.character(res_hookregNL[["sample"]])
                                   hook.CI=unlist(res_hookregNL[["hook"]])
 )
 
-## ----results='asis', echo=TRUE, message=FALSE, warning=FALSE-------------
+## ----results='asis', echo=TRUE, message=FALSE, warning=FALSE------------------
 library(xtable)
 options(xtable.comment=FALSE)
 
@@ -172,7 +172,7 @@ print(xtable(res_hookregNL_table,
       table.placement = "!ht", scalebox='0.65'
 )
 
-## ---- echo=FALSE, message=FALSE, warning=FALSE---------------------------
+## ---- echo=FALSE, message=FALSE, warning=FALSE--------------------------------
 # Load the readxl package to obtain the classifications by the human.
 # The classification data are stored in an EXCEL file, which is contained in the 
 # PCRedux package.
@@ -196,7 +196,7 @@ colnames(res) <- c("Sample",
                    "hookregNL"
 )
 
-## ---- echo=TRUE, message=FALSE, warning=FALSE----------------------------
+## ---- echo=TRUE, message=FALSE, warning=FALSE---------------------------------
 # A simple logic was applied to improve the classification result. In this case
 # the assumption was, that an amplification curve has an hook effect or hook effect-like
 # curvature, if either the hookreg() or hookregNL() function are positive.
@@ -216,7 +216,7 @@ colnames(res_out) <- c("Sample",
                        "hookreg and hoohkreNL combined"
 )
 
-## ----results='asis', echo=TRUE, message=FALSE, warning=FALSE-------------
+## ----results='asis', echo=TRUE, message=FALSE, warning=FALSE------------------
 library(xtable)
 options(xtable.comment=FALSE)
 
@@ -227,7 +227,7 @@ functions.", label='method_comparison'),
 caption.placement = "top",
 scalebox='0.65')
 
-## ----echo=TRUE, message=FALSE, warning=FALSE-----------------------------
+## ----echo=TRUE, message=FALSE, warning=FALSE----------------------------------
 res_performeR <- signif(t(rbind(
   hookreg=performeR(res_out[["hookreg"]], res_out[["Human rater"]]),
   hookregNL=performeR(res_out[["hookregNL"]], res_out[["Human rater"]]),
@@ -237,7 +237,7 @@ res_performeR <- signif(t(rbind(
 
 colnames(res_performeR) <- c("hookreg", "hookregNL", "hookreg and hookregNL")
 
-## ----results='asis', echo=TRUE, message=FALSE, warning=FALSE-------------
+## ----results='asis', echo=TRUE, message=FALSE, warning=FALSE------------------
 library(xtable)
 options(xtable.comment=FALSE)
 

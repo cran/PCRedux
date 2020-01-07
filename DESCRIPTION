@@ -2,8 +2,8 @@ Package: PCRedux
 Type: Package
 Title: Quantitative Polymerase Chain Reaction (qPCR) Data Mining and
         Machine Learning Toolkit
-Version: 1.0-2
-Date: 2019-10-28
+Version: 1.0-4
+Date: 2019-12-22
 Authors@R: c(person("Stefan", "Roediger", 
              email = "stefan.roediger@b-tu.de", 
              comment = c(ORCID = "0000-0002-1441-6512"),
@@ -31,13 +31,13 @@ Depends: R (>= 3.5.0)
 Imports: bcp, changepoint, chipPCR, ecp, fda.usc, MBmca, pbapply,
         pracma, qpcR, robustbase, shiny, stats, utils, zoo
 Suggests: DT, FFTrees, knitr, RDML, randomForest, readxl, rmarkdown,
-        spelling, testthat, xtable
+        spelling, testthat, xtable, future, listenv
 NeedsCompilation: no
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US
-RoxygenNote: 6.1.1
-Packaged: 2019-10-31 06:40:54 UTC; tux
+RoxygenNote: 7.0.2
+Packaged: 2020-01-07 10:51:15 UTC; tux
 Author: Stefan Roediger [cre, aut] (<https://orcid.org/0000-0002-1441-6512>),
   Michal Burdukiewicz [aut] (<https://orcid.org/0000-0001-8926-582X>),
   Andrej-Nikolai Spiess [aut],
@@ -45,4 +45,4 @@ Author: Stefan Roediger [cre, aut] (<https://orcid.org/0000-0002-1441-6512>),
   Dominik Rafacz [ctb]
 Maintainer: Stefan Roediger <stefan.roediger@b-tu.de>
 Repository: CRAN
-Date/Publication: 2019-10-31 10:30:02 UTC
+Date/Publication: 2020-01-07 22:40:02 UTC
