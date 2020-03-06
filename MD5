@@ -1,11 +1,11 @@
-de3160af4dab0019d2ef2bf2321f42b0 *CHANGELOG
-63b9697fd2d17208613b0e21a64c72c7 *DESCRIPTION
+ff1637cdc4f126180a52d313c7ae5738 *CHANGELOG
+dbcf84a01b33dc43709ab1c4d2dbbf94 *DESCRIPTION
 6aafb12ab49805b395a0d4fd5368f5dc *LICENSE
 aa2ff213ad14c5ae4bf683f5e7ecde27 *NAMESPACE
 8e1933464735033311bf549c58374b0f *NEWS
 b10bf0bd1a1d5953dc30dfb26eae0c1c *R/PCRedux.R
 368659cd52ae92e820b1ecec721b28f2 *R/autocorrelation_test.R
-4b51009f6d6524c19c35e88d46d8a5b6 *R/decision_modus.R
+411b78bbea6275408518b7ff18aaae16 *R/decision_modus.R
 d05dfee34b7205fce652ce4f7c0987ae *R/earlyreg.R
 156b52771a0687d6e5cc00d7aef84d35 *R/encu.R
 a58dfc5b5aad44c4ba100663ce406df1 *R/head2tailratio.R
@@ -84,10 +84,10 @@ b3f8e8065732274329880907404f4766 *inst/decision_res_testdat.csv
 5204945369a2721922b798c9cf43e6c9 *inst/decision_res_vermeulen1.csv
 2f6dcbdc2e085ab0fd16ec327e36de12 *inst/decision_res_vermeulen2.csv
 ba526f3f055ee37762032991e2d42214 *inst/doc/PCRedux.Rmd
-9752cb22475bbe3c0545bacc1209c952 *inst/doc/PCRedux.pdf
+46b4ba0e5b68614a02d4af977a1ee88b *inst/doc/PCRedux.pdf
 926d144e77531273737cbc159df4803d *inst/doc/SI1.R
 ec449ca7121549fb8126ab10c606f0b3 *inst/doc/SI1.Rmd
-f8f2530251fed573471cd0bcf802dd79 *inst/doc/SI1.pdf
+253274543ecf9429abaea0745db1f647 *inst/doc/SI1.pdf
 bdbc161c09461f7ba62df8688bff8df3 *inst/hookreg.rdml
 4f2a6492507dede56c01003a5adfcf3e *man/PCRedux-package.Rd
 92e238395932e401007e171d2e6a43cb *man/PCRedux_datasets.rd
