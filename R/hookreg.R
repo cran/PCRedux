@@ -5,6 +5,8 @@
 #' amplification curve data from a quantitative PCR experiment. The idea is that
 #' a strong negative slope at the end of an amplification curve is indicative for
 #' a hook effect (see Barratt and Mackay 2002).
+#' @return gives a \code{numeric} (S3 class, type of \code{double}) as output 
+#' for the detection of a hook
 #'
 #' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
@@ -21,7 +23,7 @@
 #' doi:10.1128/JCM.40.4.1571-1572.2002.
 #' @keywords slope intercept hook
 #' @examples
-#'
+#' default.par <- par(no.readonly = TRUE)
 #' # Calculate slope and intercept on noise (negative) amplification curve data
 #' # for the last eight cycles.
 #'
@@ -48,6 +50,7 @@
 #'  legend("topright", c("Strong Hook effect", " Weak Hook effect"), pch=c(1,2), col=c(1,2), bty="n")
 #'  text(res_hook$intercept, res_hook$slope, res_hook$sample)
 #'
+#' par(default.par)
 #' @export hookreg
 
 hookreg <- function(x, y, normalize=TRUE, sig.level=0.0025, CI.level=0.9975, robust=FALSE) {

@@ -15,6 +15,10 @@ function from the chipPCR package (Roediger et al. 2015) is used to pre-process
 the data (e.g., imputation of missing values).
 and the fluorescence (subsequent columns).}
 }
+\value{
+gives an \code{fdata} object (S3 class, type of \code{list}) as output 
+for a converted amplification curve.
+}
 \description{
 \code{qPCR2fdata} is a helper function to convert qPCR data to the functional
 \code{\link{fdata}} class as proposed by  Febrero-Bande & de la Fuente (2012). This
@@ -23,7 +27,7 @@ which includes utilities for functional data analysis (e.g., Hausdorff
 distance).
 }
 \examples{
-
+default.par <- par(no.readonly = TRUE)
 # Calculate slope and intercept on noise (negative) amplification curve data
 # for the last eight cycles.
 library(qpcR)
@@ -49,7 +53,7 @@ legend("topleft", as.character(res_fdata_colnames), pch=19,
 res_fdata_hclust <- metric.hausdorff(res_fdata)
 plot(hclust(as.dist(res_fdata_hclust)), main="Clusters of the amplification\n
    curves as calculated by the Hausdorff distance")
-
+par(default.par)
 }
 \references{
 M. Febrero-Bande, M.O. de la Fuente, others, \emph{Statistical

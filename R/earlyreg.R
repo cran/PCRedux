@@ -10,6 +10,9 @@
 #' in "probability for noiseless functional relationships" (see
 #' original study by Reshef, D. N. et al. Detecting novel associations in
 #' large data sets. Science, 334, 1518-1524 (2011)).
+#' 
+#' @return gives a \code{numeric} vector (S3 class, type of \code{double}) as 
+#' output for local regression
 #'
 #' @param x is the cycle numbers (x-axis).
 #' @param y is the cycle dependent fluorescence amplitude (y-axis).
@@ -20,7 +23,7 @@
 #' @keywords slope intercept
 #' @seealso
 #'  \code{\link[robustbase]{lmrob}}
-#'  \code{\link[stats]{coefficients}}
+#'  \code{\link[stats:coefficients]{stats::coefficients()}}
 #' @examples
 #'
 #' # Calculate slope and intercept on noise (negative) amplification curve data

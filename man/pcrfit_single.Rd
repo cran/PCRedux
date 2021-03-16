@@ -12,35 +12,53 @@ pcrfit_single(x)
 \value{
 Output Description
 \tabular{llr}{
-  "eff" \tab qPCR amplification efficiency \tab numeric \cr
   "cpD1" \tab maximum of the first derivative curve \tab numeric \cr
   "cpD2" \tab maximum of the second derivative curve \tab numeric \cr
   "cpD2_approx" \tab maximum of the second derivative curve calculated by the approximate derivative \tab numeric \cr
   "cpD2_ratio" \tab a value calculated from the ratio between cpD2 and cpD2_approx \tab numeric \cr
-  "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
-  "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
+  "eff" \tab qPCR amplification efficiency \tab numeric \cr
+  "sliwin" \tab qPCR amplification efficiency according the the 'window-of-linearity' method by Ruijter et al. (2009) \tab numeric \cr
+  "cpDdiff" \tab absolute difference between cpD1 and cpD2 \tab numeric \cr
+  "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
+  "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
   "top" \tab takeoff point. When no top can be determined, the tob value is set to the first cycle number. \tab numeric \cr
   "f.top" \tab fluorescence at takeoff point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the first cycle number. \tab  numeric \cr
-  "tdp" \tab takes the maximum x fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
+  "tdp" \tab takes the maximum fluorescence subtracted by reverse values of the fluorescence and calculates then the fake takeoff point. It is so to speak the take down point (tdp). When no tdp can be determined, the tdb value is set to the last cycle number. \tab numeric \cr
   "f.tdp" \tab fluorescence at tdp point. When no f.tdp can be determined, the f.tdp value is set to the RFU value at the last cycle number. \tab  numeric \cr
-  "sliwin" \tab PCR efficiency by the 'window-of-linearity' method \tab numeric \cr
+  "bg.stop" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
+  "amp.stop" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
   "b_slope" \tab Is the slope of the seven parameter model \tab  numeric \cr
-  "b_model_param" \tab Is the b model parameter of the five parameter model \tab  numeric \cr
-  "c_model_param" \tab Is the c model parameter of the five parameter model \tab  numeric \cr
-  "d_model_param" \tab Is the d model parameter of the five parameter model \tab  numeric \cr
-  "e_model_param" \tab Is the e model parameter of the five parameter model \tab  numeric \cr
-  "f_model_param" \tab Is the f model parameter of the five parameter model \tab  numeric \cr
+  "b_model_param" \tab Is the b model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+  "c_model_param" \tab Is the c model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+  "d_model_param" \tab Is the d model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+  "e_model_param" \tab Is the e model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
+  "f_model_param" \tab Is the f model parameter of the model optimally fitted according to the AIC \tab  numeric \cr
   "f_intercept" \tab Is the intercept of the seven parameter model \tab  numeric \cr
+  "convInfo_iteratons" \tab Number of iterations needed to fit the 7 parameter model \tab numeric \cr
+  "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
+  "qPCRmodelRF" \tab non-linear model determined for the analysis of the reversed amplification curve \tab factor \cr
+  "minRFU" \tab minimum of fluorescence amplitude \tab numeric \cr
+  "maxRFU" \tab maximum of fluorescence amplitude \tab numeric \cr
+  "init2" \tab initial template fluorescence from an exponential model \tab numeric \cr
+  "fluo" \tab raw fluorescence value at the point defined by cpD2 \tab  numeric \cr
+  "slope_bg" \tab slope of the first cycles \tab numeric \cr
   "k1_model_param" \tab Is the k1 model parameter of the seven parameter model \tab  numeric \cr
   "k2_model_param" \tab Is the k2 model parameter of the seven parameter model \tab  numeric \cr
-  "convInfo_iteratons" \tab Number of iterations needed to fit the model \tab numeric \cr
-  "cpDdiff" \tab absolute difference between cpD1 and cpD2 \tab numeric \cr
-  "slope_bg" \tab slope of the first cycles \tab numeric \cr
   "intercept_bg" \tab intercept of the first cycles \tab numeric \cr
+  "sigma_bg" \tab sigma of background \tab numeric \cr
+  "sd_bg" \tab standard deviation of the background (ground phase) region (start to takeoff point) \tab numeric \cr
+  "head2tail_ratio" \tab ratio between the signal of the background and tail region \tab numeric \cr
+  "mblrr_intercept_bg" \tab the value of the intercept in the estimated background region of the amplification curve \tab numeric \cr
+  "mblrr_slope_bg" \tab the value of the slope in the estimated background region of the amplification curve \tab numeric \cr
+  "mblrr_cor_bg" \tab the value of the linear correlation coefficient in the estimated background region of the amplification curve \tab numeric \cr
+  "mblrr_intercept_pt" \tab the value of the intercept in the estimated plateau phase of the amplification curve \tab numeric \cr
+  "mblrr_slope_pt" \tab the value of the slope in the estimated plateau phase of the amplification curve \tab numeric \cr
+  "mblrr_cor_pt" \tab the value of the linear correlation coefficient in the estimated plateau phase of the amplification curve \tab numeric \cr
   "polyarea" \tab area of a polygon given by the vertices in the vectors cycles and fluorescence \tab numeric \cr
+  "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
+  "autocorrelation" \tab is a value of autocorrelation of a gain curve from a quantitative PCR experiment \tab numeric \cr
   "cp_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
   "cp_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
-  "qPCRmodel" \tab non-linear model determined for the analysis \tab factor \cr
   "amptester_shapiro" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
   "amptester_lrt" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
   "amptester_rgt" \tab Resids growth test (RGt) tests if fluorescence values in a linear phase are stable \tab binary \cr
@@ -48,28 +66,47 @@ Output Description
   "amptester_slt" \tab Signal level test compares 1. the signals by a robust "sigma" rule by median + 2 * mad and 2. by comparison of the signal/noise ratio \tab binary \cr
   "amptester_polygon" \tab pco test (pco) determines if the points in an amplification curve (like a polygon, in particular non-convex polygons) are in a "clockwise" order. \tab binary \cr
   "amptester_slope.ratio" \tab SlR uses the inder function to find the approximated first derivative maximum, second derivative minimum and the second derivative maximum. These are used for a regression analysis with the corresponding fluorescence amplitude data. \tab numeric \cr
-  "minRFU" \tab minimum of fluorescence amplitude (percentile 0.01) \tab numeric \cr
-  "maxRFU" \tab maximum of fluorescence amplitude (percentile 0.99) \tab numeric \cr
-  "bg.start_norm" \tab takes the start (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "bg.stop" \tab estimates the end (cycle) the amplification curve background based on the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "amp.stop" \tab estimates the end (cycle) of the amplification curve based in the bg.max function and normalizes it to the total cycle number \tab numeric \cr
-  "head2tail_ratio" \tab \tab numeric \cr
-  "autocorrelation" \tab  \tab numeric \cr
-  "mblrr_intercept_bg" \tab  \tab numeric \cr
-  "mblrr_slope_bg" \tab \tab numeric \cr
-  "mblrr_cor_bg" \tab \tab numeric \cr
-  "mblrr_intercept_pt" \tab \tab numeric \cr
-  "mblrr_slope_pt" \tab \tab numeric \cr
-  "mblrr_cor_pt" \tab \tab numeric \cr
-  "amp_cor_MIC" \tab \tab numeric \cr
   "hookreg_hook" \tab estimate of hook effect like curvature \tab binary \cr
   "hookreg_hook_slope" \tab estimate of slope of the hook effect like curvature \tab numeric \cr
-  "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
-  "loglin_slope" \tab slope determined by a linear model of the data points from the minimum and maximum of the second derivative \tab numeric \cr
-  "cpD2_range" \tab cycle difference between the maximum and the minimum of the second derivative curve \tab numeric \cr
+  "hookreg_hook_delta" \tab Estimated value for the number of cycles from the qPCR cycle where the hook effect was determined up to the last qPCR cycle \tab numeric \cr
+  "central_angle" \tab shows the central angle calculated from the maximum and minimum of the second derivatives, with the first derivative maximum being the center \tab numeric \cr
   "sd_bg" \tab shows the standard deviation of the fluorescence in the ground phase \tab numeric \cr
-  "central_angle" \tab shows the central angle calculated from the maxima and minima of the derivatives \tab numeric \cr
+  "number_of_cycles" \tab Number of cylces \tab numeric \cr
+  "direction" \tab test if the maximum of the first derivative is positive or negative \tab numeric \cr
+  "range" \tab outputs the difference of fluorescence between 0.99 and 0.01 percentile. The value thus corresponds approximately to the maximum achievable signal difference of an amplification curve. \tab numeric \cr
+  "polyarea_trapz" \tab calculates trapezoidal integration. The calculation stops when the difference from one step to the next is smaller than a tolerance value, or the iterations become too large. The value corresponds to the sum signal via the total amplification curve. \tab numeric \cr
+  "cor" \tab is the value of the correlation coefficient from a linear correlation analysis according to Pearson between all PCR cycles and the fluorescence signals. \tab numeric \cr
+  "res_coef_pcrfit.b" \tab is the parameter from the adjustment with a nonlinear (sigmoid) four-parametric model which describes the Hill’s slope of the curve (i.e. this is related to the steepness of the curve point e) \tab numeric \cr
+  "res_coef_pcrfit.c" \tab is the parameter from the adjustment with a nonlinear (sigmoid) four-parametric model which describes the maximum value that can be obtained (i.e. what happens at infinite number of cycles) \tab numeric \cr
+  "res_coef_pcrfit.d" \tab is the parameter from the adjustment with a nonlinear (sigmoid) four-parametric model which describes the minimum value that can be obtained (i.e. what happens at 0 cycles) \tab numeric \cr
+  "res_coef_pcrfit.e" \tab is the parameter from the adjustment with a nonlinear (sigmoid) four-parametric model, which describes the point of inflection (i.e. the point on the sigmoid curve halfway between d and c) \tab numeric \cr
+  "fitAIC" \tab is the value of the Akaike's second-order corrects Information Criterion, which was determined on a non-linear (sigmoid) four-parameter model \tab numeric \cr
+  "fitIter" \tab Number of iterations needed to fit the 4 parameter model \tab numeric \cr
+  "segment_x" \tab Adjusts a regression model with segmented (linear) relationships between fluorescence and PCR cycles. This segment describes the baseline in an amplification curve. \tab numeric \cr
+  "segment_U1.x" \tab Adjusts a regression model with segmented (linear) relationships between fluorescence and PCR cycles. This segment describes the slope in an amplification curve. \tab numeric \cr
+  "segment_U2.x" \tab Adjusts a regression model with segmented (linear) relationships between fluorescence and PCR cycles. This segment describes the plateau in an amplification curve. \tab numeric \cr
+  "segment_psi1.x" \tab Adjusts a regression model with segmented (linear) relationships between fluorescence and PCR cycles. The value is based on the break-point(s) fixed at the values and describes the transition from the baseline phase to the exponential phase. \tab numeric \cr
+  "segment_psi2.x" \tab Adjusts a regression model with segmented (linear) relationships between fluorescence and PCR cycles. The value is based on the break-point(s) fixed at the values and describes the transition from the exponential phase to the plateau phase. \tab numeric \cr
+  "sumdiff" \tab describes proportion of cycles x in which the fluorescence signal of x is smaller than in x+1 \tab numeric \cr
+  "poly_1" \tab is a value of a third-order polynomial a + b*x + c*x^2 + d*x^3 is fitted to the curve data, where the intercept correspond to the baseline and the three predictor-dependent terms deliver a approximation to the sigmoidal curve structure. This value describes the intercept "a" (cutting point of the amplification curve model with the ordinate). \tab numeric \cr
+  "poly_2" \tab is a value of a third-order polynomial a + b*x + c*x^2 + d*x^3 is fitted to the curve data, where the intercept correspond to the baseline and the three predictor-dependent terms deliver a approximation to the sigmoidal curve structure. This value describes the linear part "b*x". \tab numeric \cr
+  "poly_3" \tab is a value of a third-order polynomial a + b*x + c*x^2 + d*x^3 is fitted to the curve data, where the intercept correspond to the baseline and the three predictor-dependent terms deliver a approximation to the sigmoidal curve structure. This value describes the quadratic part "c*x^2". \tab numeric \cr
+  "poly_4" \tab is a value of a third-order polynomial a + b*x + c*x^2 + d*x^3 is fitted to the curve data, where the intercept correspond to the baseline and the three predictor-dependent terms deliver a approximation to the sigmoidal curve structure. This value describes the cubic part "d*x^3". \tab numeric \cr
+  "window_Win_1" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 1st window for cycles (0.961,4.9]. \tab numeric \cr
+  "window_Win_2" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 2nd window for cycles (4.9,8.8]. \tab numeric \cr
+  "window_Win_3" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 3rd window for cycles (8.8,12.7]. \tab numeric \cr
+  "window_Win_4" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 4th window for cycles (12.7,16.6]. \tab numeric \cr
+  "window_Win_5" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 5th window for cycles (16.6,20.5]. \tab numeric \cr
+  "window_Win_6" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 6th window for cycles (20.5,24.4]. \tab numeric \cr
+  "window_Win_7" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 7th window for cycles (24.4,28.3]. \tab numeric \cr
+  "window_Win_8" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 8th window for cycles (28.3,32.2]. \tab numeric \cr
+  "window_Win_9" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 9th window for cycles (32.2,36.1]. \tab numeric \cr
+  "window_Win_10" \tab The complete curve trajectory is segmented into 10 equidistant windows by fitting an interpolating smoothing spline with smoothing factor 0.5 to the curve, interpolating exactly 50 curve points, and then cutting these into 10 windows of five values each, with a subsequent calculation of the MAD/Median ratio for each of these windows. This is the 10th window for cycles (36.1,40]. \tab numeric \cr
+  "sd_plateau" \tab describes the standard deviation in the late phase of an amplification curve (last five cycles). With ideal PCRs, this corresponds to the plateau phase. \tab numeric \cr
 }
+
+gives a \code{data.frame} (S3 class, type of \code{list}) as output 
+for the curve features
 }
 \description{
 The pcrfit_single is responsible for the
@@ -123,6 +160,7 @@ pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015)
  \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
  \code{\link[base]{diff}}
  \code{\link[stats]{quantile}}
+ \code{\link[segmented]{segmented}}
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz

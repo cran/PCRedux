@@ -2,7 +2,7 @@
 % Please edit documentation in R/mblrr.R
 \name{mblrr}
 \alias{mblrr}
-\title{A function to perform a Qunantile-filter based Local Robust Regression}
+\title{A function to perform a Local Robust Regression in Ranges defined by Qunantile-filtering}
 \usage{
 mblrr(x, y, sig.level = 0.01, normalize = FALSE)
 }
@@ -15,6 +15,10 @@ mblrr(x, y, sig.level = 0.01, normalize = FALSE)
 
 \item{normalize}{is a logical parameter, which indicates if the amplification curve
 data should be normalized to the 99 percent quantile of the amplification curve.}
+}
+\value{
+gives a \code{numeric} (S3 class, type of \code{double}) as output 
+for the regressed regions
 }
 \description{
 \code{mblrr} is a function to perform the Median based Local Robust Regression (mblrr)

@@ -15,12 +15,16 @@ autocorrelation_test(y, n = 8, sig.level = 0.01)
 \item{sig.level}{is the significance level for the correlation test.,
 Default: 0.01}
 }
+\value{
+gives a \code{numeric} value (S3 class) as output for an autocorrelation
+}
 \description{
 \code{autocorrelation_test} is a function for an autocorrelation analysis
 from a quantitative PCR experiment. The result of the function is 
 a correlation coefficient.
 }
 \examples{
+default.par <- par(no.readonly = TRUE)
 # Test for autocorrelation in amplification curve data
 # Load qpcR for the data
 library(qpcR)
@@ -66,6 +70,7 @@ legend("topleft", c("Human", "autocorrelation_test"), pch=c(19,1),
 barplot(as.matrix(res_performeR[, c(1:10,12)]), yaxt="n",
         ylab="", main="Performance of autocorrelation_test")
 axis(2, at=c(0,1), labels=c("0", "1"), las=2)
+par(default.par)
 }
 \seealso{
 \code{\link[zoo]{as.zoo}}, \code{\link[stats]{lag}},

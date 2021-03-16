@@ -1,4 +1,4 @@
-#' A function to perform a Qunantile-filter based Local Robust Regression
+#' A function to perform a Local Robust Regression in Ranges defined by Qunantile-filtering
 #'
 #' \code{mblrr} is a function to perform the Median based Local Robust Regression (mblrr)
 #' from a quantitative PCR experiment. In detail, this function attempts to break the
@@ -7,6 +7,8 @@
 #' preformed individually on both parts. The rational behind this analysis is
 #' that the slope and intercept of an amplification curve differ in the
 #' background and plateau region.
+#' @return gives a \code{numeric} (S3 class, type of \code{double}) as output 
+#' for the regressed regions
 #' @details
 #' \emph{mblrr_intercept_bg} is the intercept of the head region,
 #' \emph{mblrr_slope_bg} is the slope of the head region,

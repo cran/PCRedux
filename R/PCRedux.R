@@ -16,9 +16,10 @@
 #' @importFrom pracma polyarea
 #' @importFrom qpcR AICc efficiency LRE mselect pcrfit sliwin takeoff
 #' @importFrom robustbase lmrob
-#' @importFrom stats coefficients confint cor.test cutree dist hclust lag lm mad median na.omit quantile sd wilcox.test
+#' @importFrom stats coefficients confint cor.test cutree dist hclust lag lm mad median na.omit quantile sd wilcox.test cor predict smooth.spline
 #' @importFrom utils head tail data
 #' @importFrom zoo as.zoo
+#' @importFrom segmented seg.control
 #' @author Stefan Roediger, Michal Burdukiewcz, Andrej-Nikolai Spiess, Konstantin A. Blagodatskikh
 #' @docType package
 #' @name PCRedux-package
@@ -45,7 +46,7 @@ l4 <- list(expr = "Fluo ~ c + (d - c)/(1 + exp(b * (log(Cycles) - log(e))))",
         y2 <- y[y > 0]
         logitTrans <- log((d - y2)/(y2 - c))
         lmFit <- lm(logitTrans ~ log(x2))
-        coefVec <- coef(lmFit)
+        coefVec <- coefficients(lmFit)
         b <- coefVec[2]
         e <- exp(-coefVec[1]/b)
         ssVal <- as.numeric(c(b, c, d, e))
@@ -95,7 +96,7 @@ l5 <- list(expr = "Fluo ~ c + (d - c)/((1 + exp(b * (log(Cycles) - log(e))))^f)"
         y2 <- y[y > 0]
         logitTrans <- log((d - y2)/(y2 - c))
         lmFit <- lm(logitTrans ~ log(x2))
-        coefVec <- coef(lmFit)
+        coefVec <- coefficients(lmFit)
         b <- coefVec[2]
         e <- exp(-coefVec[1]/b)
         f <- 1
@@ -157,7 +158,7 @@ l6 <- list(expr = "Fluo ~ c + (k * Cycles) + (d - c)/((1 + exp(b * (log(Cycles) 
         e <- exp(-coefVec[1]/b)
         f <- 1
         lmFit2 <- lm(y2[1:10] ~ x2[1:10])
-        k <- coef(lmFit2)[2]
+        k <- coefficients(lmFit2)[2]
         ssVal <- as.numeric(c(b, c, d, e, f, k))
         names(ssVal) <- l6$parnames
         return(ssVal)
@@ -211,12 +212,12 @@ l7 <- list(
     y2 <- y[y > 0]
     logitTrans <- log((d - y2) / (y2 - c))
     lmFit <- lm(logitTrans ~ log(x2))
-    coefVec <- coef(lmFit)
+    coefVec <- coefficients(lmFit)
     b <- coefVec[2]
     e <- exp(-coefVec[1] / b)
     f <- 1
     lmFit2 <- lm(y2[1:10] ~ x2[1:10])
-    k1 <- coef(lmFit2)[2]
+    k1 <- coefficients(lmFit2)[2]
     k2 <- -0.01 * k1
     ssVal <- as.numeric(c(b, c, d, e, f, k1, k2))
     names(ssVal) <- l7$parnames

@@ -5,6 +5,8 @@
 #' function prepares the data for further analysis with the \code{\link{fda.usc}} package,
 #' which includes utilities for functional data analysis (e.g., Hausdorff
 #' distance).
+#' @return gives an \code{fdata} object (S3 class, type of \code{list}) as output 
+#' for a converted amplification curve.
 #' @param data is a data set containing the amplification cycles (1. column)
 #' and the fluorescence (subsequent columns).
 #' @param preprocess is a logical parameter (default FALSE). If TRUE, the \code{\link{CPP}}
@@ -21,7 +23,7 @@
 #' 2900--2902. doi:10.1093/bioinformatics/btv205.
 #' @keywords fdata
 #' @examples
-#'
+#' default.par <- par(no.readonly = TRUE)
 #' # Calculate slope and intercept on noise (negative) amplification curve data
 #' # for the last eight cycles.
 #' library(qpcR)
@@ -47,7 +49,7 @@
 #' res_fdata_hclust <- metric.hausdorff(res_fdata)
 #' plot(hclust(as.dist(res_fdata_hclust)), main="Clusters of the amplification\n
 #'    curves as calculated by the Hausdorff distance")
-#'
+#' par(default.par)
 #' @export qPCR2fdata
 
 qPCR2fdata <- function(data, preprocess=FALSE) {

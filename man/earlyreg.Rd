@@ -17,6 +17,10 @@ earlyreg(x, y, range = 5, normalize = FALSE)
 \item{normalize}{is a logical parameter which indicates if the amplification curve
 data should be normalized to the 99 percent percentile of the amplification curve.}
 }
+\value{
+gives a \code{numeric} vector (S3 class, type of \code{double}) as 
+output for local regression
+}
 \description{
 \code{earlyreg} is a function to calculate the slope and intercept of an
 amplification curve data from a quantitative PCR experiment. The number
@@ -43,7 +47,7 @@ res
 }
 \seealso{
 \code{\link[robustbase]{lmrob}}
- \code{\link[stats]{coefficients}}
+ \code{\link[stats:coefficients]{stats::coefficients()}}
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz

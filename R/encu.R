@@ -5,7 +5,9 @@
 #' features of a large amplification curve data set.
 #' The \code{\link[PCRedux]{pcrfit_single}} is
 #' performing the analysis for a single process.
-#'
+#' 
+#' @return gives a \code{data.frame} vector (S3 class, type of \code{list}) as 
+#' output for features
 #'
 #' @param data is the data set containing the cycles and fluorescence amplitudes.
 #' @param detection_chemistry contains additional meta information about the
@@ -37,13 +39,8 @@ encu <- function(data, detection_chemistry = NA, device = NA) {
   # Prepare the data for further processing
   # Normalize RFU values to the alpha quantiles (0.999)
   cycles <- data.frame(cycles = data[, 1])
-  data_RFU <- data.frame(data[, -1])
+  data_RFU <- data.frame(data[, -1, drop = FALSE])
   ncol_data_RFU <- ncol(data_RFU)
-  data_RFU_colnames <- colnames(data_RFU)
-  data_RFU <- sapply(1L:ncol_data_RFU, function(i) {
-    data_RFU[, i] / quantile(data_RFU[, i], 0.999, na.rm = TRUE)
-  })
-  colnames(data_RFU) <- data_RFU_colnames
 
   run_res <- do.call(rbind, pblapply(1L:ncol_data_RFU, function(ith_run) {
     pcrfit_single(data_RFU[, ith_run])
