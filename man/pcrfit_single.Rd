@@ -58,7 +58,6 @@ Output Description
   "peaks_ratio" \tab Takes the estimate approximate local minimums and maximums \tab \cr
   "autocorrelation" \tab is a value of autocorrelation of a gain curve from a quantitative PCR experiment \tab numeric \cr
   "cp_e.agglo" \tab agglomerative hierarchical estimate for multiple change points \tab numeric \cr
-  "cp_bcp" \tab change point by Bayesian analysis methods \tab numeric \cr
   "amptester_shapiro" \tab tests based on the Shapiro-Wilk normality test if the amplification curve is just noise \tab binary \cr
   "amptester_lrt" \tab performs a cycle dependent linear regression and determines if the coefficients of determination deviates from a threshold \tab binary \cr
   "amptester_rgt" \tab Resids growth test (RGt) tests if fluorescence values in a linear phase are stable \tab binary \cr
@@ -150,18 +149,7 @@ S. Roediger, M. Burdukiewicz, P. Schierack, \emph{chipPCR: an R package to
 pre-process raw data of amplification curves}, \emph{Bioinformatics}. 31 (2015)
 2900--2902. doi:10.1093/bioinformatics/btv205.
 }
-\seealso{
-\code{\link[bcp]{bcp}}
- \code{\link[chipPCR]{bg.max}},\code{\link[chipPCR]{amptester}},\code{\link[chipPCR]{smoother}}
- \code{\link[ecp]{e.agglo}}
- \code{\link[MBmca]{diffQ}},\code{\link[MBmca]{mcaPeaks}},\code{\link[MBmca]{diffQ2}}
- \code{\link{head2tailratio}},\code{\link{earlyreg}},\code{\link{hookreg}},\code{\link{hookregNL}},\code{\link{mblrr}},\code{\link{autocorrelation_test}}
- \code{\link[pracma]{polyarea}}
- \code{\link[qpcR]{pcrfit}},\code{\link[qpcR]{takeoff}},\code{\link[qpcR]{sliwin}},\code{\link[qpcR]{efficiency}}
- \code{\link[base]{diff}}
- \code{\link[stats]{quantile}}
- \code{\link[segmented]{segmented}}
-}
+
 \author{
 Stefan Roediger, Michal Burdukiewcz
 }

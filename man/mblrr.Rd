@@ -24,7 +24,7 @@ for the regressed regions
 \code{mblrr} is a function to perform the Median based Local Robust Regression (mblrr)
 from a quantitative PCR experiment. In detail, this function attempts to break the
 amplification curve in two parts (head (~background) and tail (~plateau)).
-Subsequent, a robust linear regression analysis (\code{\link{lmrob}}) is
+Subsequent, a robust linear regression analysis (\code{lmrob}) is
 preformed individually on both parts. The rational behind this analysis is
 that the slope and intercept of an amplification curve differ in the
 background and plateau region.
@@ -38,10 +38,10 @@ background and plateau region.
 \emph{mblrr_cor_pt} is the coefficient of correlation of the tail region
 }
 \examples{
+library(qpcR)
 
 # Perform an mblrr analysis on noise (negative) amplification data of qPCR data
 # with 35 cycles.
-library(qpcR)
 mblrr(x=boggy[, 1], y=boggy[, 2], normalize=TRUE)
 
 }

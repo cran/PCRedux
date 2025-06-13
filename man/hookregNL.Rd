@@ -36,9 +36,10 @@ hook effect (see Barratt and Mackay 2002). In contrast to
 amplification curve and extracts the coefficient, which describes the slope.
 }
 \examples{
+library(qpcR)
+
 # Analyze data from the boggy data set for potential hook effect like
 # curvature
-library(qpcR)
 # has hook
 res <- hookregNL(boggy[, 1], boggy[, 2])
 res
@@ -47,15 +48,13 @@ res
 res <- hookregNL(boggy[, 1], boggy[, 12])
 res
 }
+
 \references{
 K. Barratt, J.F. Mackay, \emph{Improving Real-Time PCR Genotyping
 Assays by Asymmetric Amplification}, J. Clin. Microbiol. 40 (2002) 1571--1572.
 doi:10.1128/JCM.40.4.1571-1572.2002.
 }
-\seealso{
-\code{\link[qpcR]{pcrfit}}
- \code{\link[stats]{confint}}
-}
+
 \author{
 Andrej-Nikolai Spiess, Stefan Roediger, Michal Burdukiewcz
 }

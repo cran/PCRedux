@@ -33,7 +33,6 @@ original study by Reshef, D. N. et al. Detecting novel associations in
 large data sets. Science, 334, 1518-1524 (2011)).
 }
 \examples{
-
 # Calculate slope and intercept on noise (negative) amplification curve data
 # for the cycles 2 to 7 for the C316.amp data set
 library(chipPCR)
@@ -44,10 +43,6 @@ plot(C316.amp[, 2], y=C316.amp[, 3], xlab="Cycle", ylab="RFU",
      main="C316.amp data set", lty=1, type="l")
 res <- earlyreg(x=C316.amp[, 2], y=C316.amp[, 3], range=5)
 res
-}
-\seealso{
-\code{\link[robustbase]{lmrob}}
- \code{\link[stats:coefficients]{stats::coefficients()}}
 }
 \author{
 Stefan Roediger, Michal Burdukiewcz

@@ -41,12 +41,11 @@ a strong negative slope at the end of an amplification curve is indicative for
 a hook effect (see Barratt and Mackay 2002).
 }
 \examples{
+library(qpcR)
+
 default.par <- par(no.readonly = TRUE)
 # Calculate slope and intercept on noise (negative) amplification curve data
 # for the last eight cycles.
-
-library(qpcR)
-
 res_hook <- data.frame(sample=colnames(boggy)[-1], 
                        t(sapply(2:ncol(boggy), function(i) {
                        hookreg(x=boggy[, 1], y=boggy[, i])})))

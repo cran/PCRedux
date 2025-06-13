@@ -59,10 +59,7 @@ res_angles <- unlist(lapply(2:21, function(i) {
 }))
 cdplot(RAS002_decisions[1L:20] ~ res_angles, xlab = "angle", ylab = "decision")
 }
-\seealso{
-\code{\link[base]{acos}}
- \code{\link[MBmca]{diffQ2}}
-}
+
 \author{
 Stefan Roediger
 }

@@ -28,11 +28,9 @@ tail of a quantitative PCR amplification curve. In this test, only the head
 (ROI).
 }
 \examples{
-
-# calculate head to tail ratio on amplification curve data
-
 library(qpcR)
 
+# calculate head to tail ratio on amplification curve data
 res_head2tailratio <- sapply(2:ncol(competimer), function(i) {
    head2tailratio(y=competimer[, i], normalize=TRUE, slope_normalizer=TRUE)
 })

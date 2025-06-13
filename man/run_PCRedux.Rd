@@ -18,6 +18,3 @@ Take a look at the vignette to learn more about the different ways to start the 
 \note{
 Any ad-blocking software may cause malfunctions.
 }
-\seealso{
-\code{\link{encu}}, \code{\link[shiny]{runApp}}.
-}

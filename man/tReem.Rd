@@ -29,15 +29,8 @@ for large data sets.
 }
 \examples{
 # Classify amplification curve data by Hausdorff distance
-\donttest{
 library(qpcR)
 tReem(testdat[, 1:5])
-}
-}
-\seealso{
-\code{\link[fda.usc]{metric.hausdorff}}, \code{\link[stats]{cutree}},
- \code{\link[PCRedux]{qPCR2fdata}}, \code{\link[stats]{hclust}},
- \code{\link[stats]{cor}}
 }
 \author{
 Stefan Roediger, Andrej-Nikolai Spiess

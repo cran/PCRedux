@@ -26,6 +26,3 @@ pre-process raw data of amplification curves, Bioinformatics. 31 (2015)
 [3] S. Rödiger, M. Burdukiewicz, P. Schierack, chipPCR: an R package to 
 pre-process raw data of amplification curves, Bioinformatics. 31 (2015) 
 2900–2902. https://doi.org/10.1093/bioinformatics/btv205.
-
-
-The 0.2.6 release adds more data sets and features

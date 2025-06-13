@@ -21,13 +21,12 @@ that can be used for further processing.
 \examples{
 
 # Fetch the error from the diffQ function
-require(MBmca)
 # In the following the approximate derivative of the amplification curve data
 # x <- RAS002[, 1] and y <- RAS002[, 2] is calculated by diffQ(). 
 # This will not give an error.
 x <- RAS002[, 1]
 y <- RAS002[, 2]
-armor_diffQ_passes <- armor(MBmca::diffQ(cbind(x, y), verbose = TRUE)$xy)
+armor_diffQ_passes <- armor(diffQ(cbind(x, y), verbose = TRUE)$xy)
 armor_diffQ_passes
 #
 # In the following the approximate derivative of the sequences x <- 1:40
@@ -38,13 +37,10 @@ armor_diffQ_passes
 # that is resolved to 0.
 x <- 1:40
 y <- 1:40
-armor_diffQ_fails <- armor(MBmca::diffQ(cbind(x, y), verbose = TRUE)$xy)
+armor_diffQ_fails <- armor(diffQ(cbind(x, y), verbose = TRUE)$xy)
 armor_diffQ_fails
 }
-\seealso{
-\code{\link[base:suppressMessages]{base::suppressMessages()}}
- \code{\link[base:inherits]{base::inherits()}}
-}
+
 \author{
 Andrej Nikolai Spiess, Stefan Roediger
 }

@@ -24,10 +24,9 @@ from a quantitative PCR experiment. The result of the function is
 a correlation coefficient.
 }
 \examples{
+library(qpcR)
 default.par <- par(no.readonly = TRUE)
 # Test for autocorrelation in amplification curve data
-# Load qpcR for the data
-library(qpcR)
 # Test for autocorrelation in the testdat data set
 res_ac <- sapply(2:ncol(testdat), function(i) {
                     autocorrelation_test(testdat[, i])
@@ -72,10 +71,7 @@ barplot(as.matrix(res_performeR[, c(1:10,12)]), yaxt="n",
 axis(2, at=c(0,1), labels=c("0", "1"), las=2)
 par(default.par)
 }
-\seealso{
-\code{\link[zoo]{as.zoo}}, \code{\link[stats]{lag}},
- \code{\link[stats]{cor.test}}
-}
+
 \author{
 Stefan Roediger, Michal Burdukiewcz
 }

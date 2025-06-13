@@ -52,5 +52,6 @@ dec
 \author{
 Stefan Roediger, Michal Burdukiewcz
 }
+
 \keyword{decision}
 \keyword{modus}
