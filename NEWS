@@ -1,3 +1,6 @@
+PCRedux 1.2-1 (2025-11-19)
+* To remove CRAN errors, in the 'testthat' tests, all expect_that(..., is_true()) were changed to expect_true(...) as is_true is deprecated in testthat 3.3.0.
+
 # May 2022
 
 In the background we have worked on some new functions to classify amplification

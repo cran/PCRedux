@@ -3,8 +3,8 @@ Type: Package
 Title: Quantitative Polymerase Chain Reaction (qPCR) Data Mining and
         Machine Learning Toolkit as Described in Burdukiewicz (2022)
         <doi:10.21105/Joss.04407>
-Version: 1.2-0
-Date: 2025-06-11
+Version: 1.2-1
+Date: 2025-11-19
 Authors@R: c(person("Stefan", "Roediger", 
              email = "stefan.roediger@b-tu.de", 
              comment = c(ORCID = "0000-0002-1441-6512"),
@@ -50,9 +50,9 @@ VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US
 RoxygenNote: 7.1.2
-Packaged: 2025-06-11 07:35:38 UTC; User
+Packaged: 2025-11-19 19:05:32 UTC; User
 Repository: CRAN
-Date/Publication: 2025-06-13 05:00:02 UTC
+Date/Publication: 2025-11-19 19:40:06 UTC
 Author: Stefan Roediger [aut] (ORCID: <https://orcid.org/0000-0002-1441-6512>),
   Michal Burdukiewicz [aut] (ORCID:
     <https://orcid.org/0000-0001-8926-582X>),
